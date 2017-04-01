@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="indicator_default_width">5dp</dimen>
+    <dimen name="indicator_default_height">5dp</dimen>
+    <dimen name="indicator_default_padding">8dp</dimen>
+    <dimen name="indicator_default_margin_bottom">16dp</dimen>
+</resources>

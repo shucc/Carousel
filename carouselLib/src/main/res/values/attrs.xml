@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CarouselView">
+        <attr name="carousel_delayTime" format="integer" />
+        <attr name="carousel_auto_switch" format="boolean" />
+        <attr name="carousel_show_indicator" format="boolean" />
+        <attr name="carousel_indicator_width" format="dimension" />
+        <attr name="carousel_indicator_height" format="dimension" />
+        <attr name="carousel_indicator_padding" format="dimension" />
+        <attr name="carousel_indicator_margin_bottom" format="dimension" />
+        <attr name="carousel_indicator_drawable_selected" format="reference" />
+        <attr name="carousel_indicator_drawable_unselected" format="reference" />
+    </declare-styleable>
+</resources>
