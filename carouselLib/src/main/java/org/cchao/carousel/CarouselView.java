@@ -62,6 +62,8 @@ public class CarouselView extends RelativeLayout {
 
     private ImageloaderListener imageloaderListener;
 
+    private OnItemClickListener onItemClickListener;
+
     //当前选中
     private int nowSelect = 0;
 
@@ -156,6 +158,10 @@ public class CarouselView extends RelativeLayout {
         return this;
     }
 
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
     /**
      * 开始轮播
      */
@@ -177,6 +183,14 @@ public class CarouselView extends RelativeLayout {
             addIndicator();
         }
         loopPageAdapter = new CarouselLoopPageAdapter(vpCarousel, imageUrls, imageloaderListener);
+        if (onItemClickListener != null) {
+            loopPageAdapter.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onClick(View view, int position) {
+                    onItemClickListener.onClick(view, position);
+                }
+            });
+        }
         loopPageAdapter.setOnPageSelectedListener(new CarouselLoopPageAdapter.OnPageSelectedListener() {
             @Override
             public void onPageSelected(int position) {

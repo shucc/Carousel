@@ -28,6 +28,8 @@ public class CarouselLoopPageAdapter extends PagerAdapter implements ViewPager.O
 
     private ImageloaderListener imageloaderListener;
 
+    private OnItemClickListener onItemClickListener;
+
     private OnPageSelectedListener onPageSelectedListener;
 
     public CarouselLoopPageAdapter(ViewPager viewPager, List<String> imageUrls, ImageloaderListener imageloaderListener) {
@@ -41,6 +43,10 @@ public class CarouselLoopPageAdapter extends PagerAdapter implements ViewPager.O
 
     public void setOnPageSelectedListener(OnPageSelectedListener onPageSelectedListener) {
         this.onPageSelectedListener = onPageSelectedListener;
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
     public void setRealCurrentItem(int position) {
@@ -61,11 +67,19 @@ public class CarouselLoopPageAdapter extends PagerAdapter implements ViewPager.O
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        position = position % fragmentSize;
+        final int pos = position % fragmentSize;
         context = container.getContext();
         View view = LayoutInflater.from(context).inflate(R.layout.carousel_item, container, false);
-        ImageView imageView = (ImageView) view.findViewById(R.id.img_carousel);
-        imageloaderListener.loadImage(context, imageView, position);
+        final ImageView imageView = (ImageView) view.findViewById(R.id.img_carousel);
+        imageloaderListener.loadImage(context, imageView, pos);
+        if (onItemClickListener != null) {
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickListener.onClick(imageView, pos);
+                }
+            });
+        }
         container.addView(view);
         return view;
     }
