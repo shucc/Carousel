@@ -1,5 +1,8 @@
 package org.cchao.carousel;
 
+import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Handler;
@@ -11,6 +14,11 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import org.cchao.carousel.app.CarouselFragment;
+import org.cchao.carousel.listener.CarouselLifecycleListener;
+import org.cchao.carousel.listener.ImageloaderListener;
+import org.cchao.carousel.listener.OnItemClickListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +29,8 @@ import java.util.List;
 public class CarouselView extends RelativeLayout {
 
     private final String TAG = getClass().getName();
+
+    private final String CAROUSEL_FRAGMENT_TAG = "org.cchao.carousel";
 
     private final int WHAT_SWITCH = 0;
 
@@ -64,6 +74,8 @@ public class CarouselView extends RelativeLayout {
 
     private OnItemClickListener onItemClickListener;
 
+    private CarouselLifecycleListener carouselLifecycleListener;
+
     //当前选中
     private int nowSelect = 0;
 
@@ -102,6 +114,21 @@ public class CarouselView extends RelativeLayout {
         bindView(context);
         initView();
         imageUrls = new ArrayList<>();
+        carouselLifecycleListener = new CarouselLifecycleListener() {
+            @Override
+            public void onStop() {
+                if (isAutoSwitch) {
+                    stop();
+                }
+            }
+
+            @Override
+            public void onResume() {
+                if (isAutoSwitch) {
+                    resume();
+                }
+            }
+        };
     }
 
     private void initTypedArray(AttributeSet attributeSet) {
@@ -130,7 +157,31 @@ public class CarouselView extends RelativeLayout {
         llIndicator.setLayoutParams(indicatorParams);
     }
 
-    public CarouselView setImageUrls(List<String> imageUrls) {
+    public CarouselRequestManager with(Activity activity) {
+        FragmentManager fm = activity.getFragmentManager();
+        CarouselFragment carouselFragment = new CarouselFragment();
+        carouselFragment.setCarouselLifecycleListener(carouselLifecycleListener);
+        fm.beginTransaction().add(carouselFragment, CAROUSEL_FRAGMENT_TAG).commitAllowingStateLoss();
+        return new CarouselRequestManager(this);
+    }
+
+    public CarouselRequestManager with(Fragment fragment) {
+        FragmentManager fm = fragment.getFragmentManager();
+        CarouselFragment carouselFragment = new CarouselFragment();
+        carouselFragment.setCarouselLifecycleListener(carouselLifecycleListener);
+        fm.beginTransaction().add(carouselFragment, CAROUSEL_FRAGMENT_TAG).commitAllowingStateLoss();
+        return new CarouselRequestManager(this);
+    }
+
+    public CarouselRequestManager with(android.support.v4.app.Fragment fragment) {
+        android.support.v4.app.FragmentManager fm = fragment.getChildFragmentManager();
+        org.cchao.carousel.v4.CarouselFragment carouselFragment = new org.cchao.carousel.v4.CarouselFragment();
+        carouselFragment.setCarouselLifecycleListener(carouselLifecycleListener);
+        fm.beginTransaction().add(carouselFragment, CAROUSEL_FRAGMENT_TAG).commitAllowingStateLoss();
+        return new CarouselRequestManager(this);
+    }
+
+    protected CarouselView setImageUrls(List<String> imageUrls) {
         this.imageUrls = imageUrls;
         if (null != imageUrls) {
             imageSize = imageUrls.size();
@@ -138,22 +189,22 @@ public class CarouselView extends RelativeLayout {
         return this;
     }
 
-    public CarouselView setAutoSwitch(boolean autoSwitch) {
+    protected CarouselView setAutoSwitch(boolean autoSwitch) {
         isAutoSwitch = autoSwitch;
         return this;
     }
 
-    public CarouselView setDealyTime(int dealyTime) {
+    protected CarouselView setDealyTime(int dealyTime) {
         this.delayTime = dealyTime;
         return this;
     }
 
-    public CarouselView setShowIndicator(boolean showIndicator) {
+    protected CarouselView setShowIndicator(boolean showIndicator) {
         isShowIndicator = showIndicator;
         return this;
     }
 
-    public CarouselView setImageLoaderListener(ImageloaderListener imageLoaderListener) {
+    protected CarouselView setImageLoaderListener(ImageloaderListener imageLoaderListener) {
         this.imageloaderListener = imageLoaderListener;
         return this;
     }
@@ -165,7 +216,7 @@ public class CarouselView extends RelativeLayout {
     /**
      * 开始轮播
      */
-    public void start() {
+    protected void start() {
         if (null == imageUrls || imageUrls.isEmpty()) {
             throw new NullPointerException("Images must not be null!");
         }

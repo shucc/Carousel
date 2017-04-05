@@ -17,7 +17,3 @@
 | carousel_indicator_margin_bottom | dimension | 指示符距离底部距离
 | carousel_indicator_drawable_selected | reference | 指示符选中图标
 | carousel_indicator_drawable_unselected | reference | 指示符未选中图标
-
-## TODO
-
-- [ ] 绑定Activity和Fragment生命周期，自动暂停和恢复图片切换

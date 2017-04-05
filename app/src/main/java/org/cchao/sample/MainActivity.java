@@ -10,8 +10,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import org.cchao.carousel.CarouselView;
-import org.cchao.carousel.ImageloaderListener;
-import org.cchao.carousel.OnItemClickListener;
+import org.cchao.carousel.listener.ImageloaderListener;
+import org.cchao.carousel.listener.OnItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,14 +36,15 @@ public class MainActivity extends AppCompatActivity {
         carouselView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Toast.makeText(MainActivity.this, "点击了:" + position, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Click position:" + position, Toast.LENGTH_SHORT).show();
             }
         });
         carouselView
+                .with(this)
                 .setImageUrls(imageUrls)
-                .setDealyTime(5 * 1000)
+                .setDealyTime(3 * 1000)
                 .setShowIndicator(true)
-                .setAutoSwitch(false)
+                .setAutoSwitch(true)
                 .setImageLoaderListener(new ImageloaderListener() {
                     @Override
                     public void loadImage(Context context, ImageView imageView, int position) {
@@ -55,17 +56,5 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
                 .start();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        carouselView.resume();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        carouselView.stop();
     }
 }

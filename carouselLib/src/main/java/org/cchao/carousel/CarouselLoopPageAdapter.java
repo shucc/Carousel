@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import org.cchao.carousel.listener.ImageloaderListener;
+import org.cchao.carousel.listener.OnItemClickListener;
+
 import java.util.List;
 
 /**
