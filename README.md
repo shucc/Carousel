@@ -4,6 +4,25 @@
 
 ## Gradle
 
+在项目的build.gradle中,添加:
+```groovy
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+
+在使用库的module中添加,为避免重复引用,推荐使用exclude::
+```groovy
+dependencies {
+    compile (com.github.shucc:Carousel:v0.1) {
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+    }
+}
+```
+
 ## Attributes
 
 |name|format|description|
@@ -18,7 +37,7 @@
 | carousel_indicator_drawable_selected | reference | 指示符选中图标,默认图标为红色小圆点
 | carousel_indicator_drawable_unselected | reference | 指示符未选中图标,默认图标为白色小圆点
 
-## How do I use CarouselView?
+## How do I use Carousel?
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -43,18 +62,18 @@
 ```
 
 ```java
-    carouselView.with(this)
-            .setImageUrls(imageUrls)
-            .setDealyTime(4 * 1000)
-            .setShowIndicator(true)
-            .setAutoSwitch(true)
-            .setImageLoaderListener(new ImageloaderListener() {
-                @Override
-                public void loadImage(Context context, ImageView imageView, int position) {
-                    Glide.with(context)
-                            .load(imageUrls.get(position))
-                            .into(imageView);
-                }
-            })
-            .start();
+carouselView.with(this)
+        .setImageUrls(imageUrls)
+        .setDealyTime(4 * 1000)
+        .setShowIndicator(true)
+        .setAutoSwitch(true)
+        .setImageLoaderListener(new ImageloaderListener() {
+            @Override
+            public void loadImage(Context context, ImageView imageView, int position) {
+                Glide.with(context)
+                        .load(imageUrls.get(position))
+                        .into(imageView);
+            }
+        })
+        .start();
 ```
