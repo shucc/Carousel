@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <org.cchao.carousel.CarouselView
+        android:id="@+id/carouselView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:carousel_delayTime="3000"
+        app:carousel_show_indicator="true"
+        app:carousel_auto_switch="true"
+        app:carousel_indicator_width="10dp"
+        app:carousel_indicator_height="10dp" />
+
+</LinearLayout>

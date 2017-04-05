@@ -1,6 +1,7 @@
 package org.cchao.sample;
 
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         carouselView
                 .with(this)
                 .setImageUrls(imageUrls)
-                .setDealyTime(3 * 1000)
+                .setDealyTime(5 * 1000)
                 .setShowIndicator(true)
                 .setAutoSwitch(true)
                 .setImageLoaderListener(new ImageloaderListener() {
@@ -56,5 +57,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
                 .start();
+
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.fl_one, new TestFragmentOne()).commitAllowingStateLoss();
+
+        android.app.FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.fl_two, new TestFragmentTwo()).commitAllowingStateLoss();
     }
 }
