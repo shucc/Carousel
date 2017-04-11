@@ -61,6 +61,7 @@ public class MyPtrClassicFrameLayout extends PtrFrameLayout {
             case MotionEvent.ACTION_MOVE:
                 // 如果viewpager正在拖拽中，那么不拦截它的事件，直接return false；
                 if(mIsVpDragger) {
+                    //TODO 目前默认下拉里只有一个子View
                     getChildAt(0).dispatchTouchEvent(ev);
                     return false;
                 }

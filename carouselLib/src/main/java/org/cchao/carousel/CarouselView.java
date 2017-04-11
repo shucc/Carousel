@@ -163,10 +163,10 @@ public class CarouselView extends RelativeLayout {
         int height = getLayoutParams().height;
         int width = getLayoutParams().width;
 
-        if (height != -1) {
+        if (height > 0) {
             heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
         }
-        if (width != -1) {
+        if (width > 0) {
             widthMeasureSpec = MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY);
         }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);

@@ -17,7 +17,7 @@ allprojects {
 在使用库的module中添加,为避免重复引用,推荐使用exclude::
 ```groovy
 dependencies {
-    compile ('com.github.shucc:Carousel:v0.1') {
+    compile ('com.github.shucc:Carousel:v1.0') {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 }
@@ -77,3 +77,9 @@ carouselView.with(this)
         })
         .start();
 ```
+
+## Demo
+
+![](https://github.com/shucc/Carousel/blob/master/demo/demo1.gif)
+![](https://github.com/shucc/Carousel/blob/master/demo/demo2.gif)
+![](https://github.com/shucc/Carousel/blob/master/demo/demo3.gif)
