@@ -28,5 +28,11 @@ public class MainActivity extends AppCompatActivity {
                 SwipeRefreshTestActivity.launch(MainActivity.this);
             }
         });
+        findViewById(R.id.button3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PtrLayoutTestActivity.launch(MainActivity.this);
+            }
+        });
     }
 }

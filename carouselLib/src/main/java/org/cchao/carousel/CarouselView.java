@@ -157,6 +157,21 @@ public class CarouselView extends RelativeLayout {
         llIndicator.setLayoutParams(indicatorParams);
     }
 
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+
+        int height = getLayoutParams().height;
+        int width = getLayoutParams().width;
+
+        if (height != -1) {
+            heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
+        }
+        if (width != -1) {
+            widthMeasureSpec = MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY);
+        }
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
     public CarouselRequestManager with(Activity activity) {
         FragmentManager fm = activity.getFragmentManager();
         CarouselFragment carouselFragment = new CarouselFragment();

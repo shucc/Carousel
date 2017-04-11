@@ -23,6 +23,8 @@
         <activity
             android:name=".SwipeRefreshTestActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".PtrLayoutTestActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
