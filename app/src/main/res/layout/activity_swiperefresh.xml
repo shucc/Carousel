@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<org.cchao.sample.VpSwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swiperefresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <org.cchao.carousel.CarouselView
+            android:id="@+id/carouselView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:carousel_indicator_drawable_selected="@drawable/ic_indicator_selected"
+            app:carousel_indicator_drawable_unselected="@drawable/ic_indicator_unselected"
+            app:carousel_indicator_width="24dp"
+            app:carousel_indicator_height="2dp"
+            app:carousel_indicator_padding="8dp"
+            app:carousel_indicator_margin_bottom="16dp"/>
+
+    </LinearLayout>
+
+
+</org.cchao.sample.VpSwipeRefreshLayout>
