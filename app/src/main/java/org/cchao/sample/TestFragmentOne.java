@@ -8,11 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
 import org.cchao.carousel.CarouselView;
 import org.cchao.carousel.listener.ImageloaderListener;
+import org.cchao.carousel.listener.OnItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +39,12 @@ public class TestFragmentOne extends Fragment {
     }
 
     private void initData() {
+        carouselView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Toast.makeText(getActivity(), "Click position" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
         imageUrls = new ArrayList<>();
         imageUrls.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1491387197409&di=8cf281305ca82c2e697fccce92e33d0c&imgtype=0&src=http%3A%2F%2Fimg1.mydrivers.com%2Fimg%2F20140831%2F9fc2b8079ae04e0bb61f384302a2a33e.jpg");
         imageUrls.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1491387197409&di=03873637a14711a3c0435d93024adb63&imgtype=0&src=http%3A%2F%2Fpic37.nipic.com%2F20140107%2F17589918_003530809000_2.jpg");

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -13,6 +14,7 @@ import com.bumptech.glide.Glide;
 
 import org.cchao.carousel.CarouselView;
 import org.cchao.carousel.listener.ImageloaderListener;
+import org.cchao.carousel.listener.OnItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,5 +76,11 @@ public class SwipeRefreshTestActivity extends Activity {
                     }
                 })
                 .start();
+        carouselView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Toast.makeText(SwipeRefreshTestActivity.this, "Click position" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

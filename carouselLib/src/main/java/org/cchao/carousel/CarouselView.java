@@ -209,8 +209,16 @@ public class CarouselView extends RelativeLayout {
         return this;
     }
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
+        if (loopPageAdapter != null) {
+            loopPageAdapter.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onClick(View view, int position) {
+                    onItemClickListener.onClick(view, position);
+                }
+            });
+        }
     }
 
     /**
@@ -235,12 +243,7 @@ public class CarouselView extends RelativeLayout {
         }
         loopPageAdapter = new CarouselLoopPageAdapter(vpCarousel, imageUrls, imageloaderListener);
         if (onItemClickListener != null) {
-            loopPageAdapter.setOnItemClickListener(new OnItemClickListener() {
-                @Override
-                public void onClick(View view, int position) {
-                    onItemClickListener.onClick(view, position);
-                }
-            });
+            setOnItemClickListener(onItemClickListener);
         }
         loopPageAdapter.setOnPageSelectedListener(new CarouselLoopPageAdapter.OnPageSelectedListener() {
             @Override
