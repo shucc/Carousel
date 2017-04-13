@@ -71,7 +71,7 @@ public class MyPtrClassicFrameLayout extends PtrFrameLayout {
                 float distanceX = Math.abs(endX - startX);
                 float distanceY = Math.abs(endY - startY);
                 if (distanceY < mTouchSlop) {
-                    return false;
+                    return true;
                 }
                 // 如果X轴位移大于Y轴位移，那么将事件交给viewPager处理。
                 if(distanceX > mTouchSlop && distanceX > distanceY) {

@@ -3,10 +3,13 @@ package org.cchao.carousel;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import org.cchao.carousel.listener.ImageloaderListener;
 import org.cchao.carousel.listener.OnItemClickListener;
@@ -23,6 +26,16 @@ public class CarouselLoopPageAdapter extends PagerAdapter implements ViewPager.O
 
     private List<String> imageUrls;
 
+    private List<String> titles;
+
+    private boolean showTitle;
+
+    private int titleColor;
+
+    private int titleSize;
+
+    private int titleMarginBottom;
+
     private int nowSelect;
     
     private int fragmentSize = 0;
@@ -35,9 +48,15 @@ public class CarouselLoopPageAdapter extends PagerAdapter implements ViewPager.O
 
     private OnPageSelectedListener onPageSelectedListener;
 
-    public CarouselLoopPageAdapter(ViewPager viewPager, List<String> imageUrls, ImageloaderListener imageloaderListener) {
+    public CarouselLoopPageAdapter(ViewPager viewPager, List<String> imageUrls, List<String> titles
+            , boolean showTitle, int titleColor, int titleSize, int titleMarginBottom, ImageloaderListener imageloaderListener) {
         this.viewPager = viewPager;
         this.imageUrls = imageUrls;
+        this.showTitle = showTitle;
+        this.titles = titles;
+        this.titleColor = titleColor;
+        this.titleSize = titleSize;
+        this.titleMarginBottom = titleMarginBottom;
         this.imageloaderListener = imageloaderListener;
         fragmentSize = imageUrls.size();
         viewPager.setOnPageChangeListener(this);
@@ -74,6 +93,19 @@ public class CarouselLoopPageAdapter extends PagerAdapter implements ViewPager.O
         context = container.getContext();
         View view = LayoutInflater.from(context).inflate(R.layout.carousel_item, container, false);
         final ImageView imageView = (ImageView) view.findViewById(R.id.img_carousel);
+
+        if (showTitle && pos < titles.size()){
+            TextView textTitle = (TextView) view.findViewById(R.id.text_carousel_title);
+            RelativeLayout.MarginLayoutParams params = (RelativeLayout.MarginLayoutParams) textTitle.getLayoutParams();
+            params.bottomMargin = titleMarginBottom;
+            textTitle.setLayoutParams(params);
+            textTitle.setTextColor(titleColor);
+            textTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, titleSize);
+            textTitle.setText(titles.get(pos));
+            textTitle.setVisibility(View.VISIBLE);
+            View shadowView = view.findViewById(R.id.view_carousel_shadow);
+            shadowView.setVisibility(View.VISIBLE);
+        }
         imageloaderListener.loadImage(context, imageView, pos);
         if (onItemClickListener != null) {
             imageView.setOnClickListener(new View.OnClickListener() {

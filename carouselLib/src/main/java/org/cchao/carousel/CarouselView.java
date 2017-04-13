@@ -5,14 +5,17 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import org.cchao.carousel.app.CarouselFragment;
 import org.cchao.carousel.listener.CarouselLifecycleListener;
@@ -60,9 +63,23 @@ public class CarouselView extends RelativeLayout {
     private int indicatorSelected;
     private int indicatorUnselected;
 
+    //是否显示title
+    private boolean showTitle;
+
+    //title文字大小
+    private int titleSize;
+
+    //title文字颜色
+    private int titleColor;
+
+    //title距离底部距离
+    private int titleMarginBottom;
+
     private Context context;
 
     private List<String> imageUrls;
+
+    private List<String> titles;
 
     private ViewPager vpCarousel;
 
@@ -114,6 +131,7 @@ public class CarouselView extends RelativeLayout {
         bindView(context);
         initView();
         imageUrls = new ArrayList<>();
+        titles = new ArrayList<>();
         carouselLifecycleListener = new CarouselLifecycleListener() {
             @Override
             public void onStop() {
@@ -136,12 +154,25 @@ public class CarouselView extends RelativeLayout {
         delayTime = typedArray.getInt(R.styleable.CarouselView_carousel_delayTime, DEFAULT_DELAY_TIME);
         isAutoSwitch = typedArray.getBoolean(R.styleable.CarouselView_carousel_auto_switch, false);
         isShowIndicator = typedArray.getBoolean(R.styleable.CarouselView_carousel_show_indicator, false);
-        indicatorWidth = typedArray.getDimensionPixelOffset(R.styleable.CarouselView_carousel_indicator_width, getResources().getDimensionPixelOffset(R.dimen.indicator_default_width));
-        indicatorHeight= typedArray.getDimensionPixelOffset(R.styleable.CarouselView_carousel_indicator_height, getResources().getDimensionPixelOffset(R.dimen.indicator_default_height));
-        indicatorPadding = typedArray.getDimensionPixelOffset(R.styleable.CarouselView_carousel_indicator_padding, getResources().getDimensionPixelOffset(R.dimen.indicator_default_padding));
-        indicatorMarginBottom = typedArray.getDimensionPixelOffset(R.styleable.CarouselView_carousel_indicator_margin_bottom, getResources().getDimensionPixelOffset(R.dimen.indicator_default_margin_bottom));
-        indicatorSelected = typedArray.getResourceId(R.styleable.CarouselView_carousel_indicator_drawable_selected, R.drawable.ic_default_indicator_selected);
-        indicatorUnselected = typedArray.getResourceId(R.styleable.CarouselView_carousel_indicator_drawable_unselected, R.drawable.ic_default_indicator_unselected);
+        indicatorWidth = typedArray.getDimensionPixelOffset(R.styleable.CarouselView_carousel_indicator_width
+                , getResources().getDimensionPixelOffset(R.dimen.carousel_default_indicator_width));
+        indicatorHeight= typedArray.getDimensionPixelOffset(R.styleable.CarouselView_carousel_indicator_height
+                , getResources().getDimensionPixelOffset(R.dimen.carousel_default_indicator_height));
+        indicatorPadding = typedArray.getDimensionPixelOffset(R.styleable.CarouselView_carousel_indicator_padding
+                , getResources().getDimensionPixelOffset(R.dimen.carousel_default_indicator_padding));
+        indicatorMarginBottom = typedArray.getDimensionPixelOffset(R.styleable.CarouselView_carousel_indicator_margin_bottom
+                , getResources().getDimensionPixelOffset(R.dimen.carousel_default_indicator_margin_bottom));
+        indicatorSelected = typedArray.getResourceId(R.styleable.CarouselView_carousel_indicator_drawable_selected
+                , R.drawable.ic_default_indicator_selected);
+        indicatorUnselected = typedArray.getResourceId(R.styleable.CarouselView_carousel_indicator_drawable_unselected
+                , R.drawable.ic_default_indicator_unselected);
+        showTitle = typedArray.getBoolean(R.styleable.CarouselView_carousel_show_title, false);
+
+        titleSize = typedArray.getDimensionPixelSize(R.styleable.CarouselView_carousel_title_size
+                , (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16, getResources().getDisplayMetrics()));
+        titleColor = typedArray.getColor(R.styleable.CarouselView_carousel_title_color, Color.WHITE);
+        titleMarginBottom = typedArray.getDimensionPixelOffset(R.styleable.CarouselView_carousel_title_margin_bottom
+                , getResources().getDimensionPixelOffset(R.dimen.carousel_default_title_margin_bottom));
         typedArray.recycle();
     }
 
@@ -204,6 +235,11 @@ public class CarouselView extends RelativeLayout {
         return this;
     }
 
+    protected CarouselView setTitles(List<String> titles) {
+        this.titles = titles;
+        return this;
+    }
+
     protected CarouselView setAutoSwitch(boolean autoSwitch) {
         isAutoSwitch = autoSwitch;
         return this;
@@ -216,6 +252,11 @@ public class CarouselView extends RelativeLayout {
 
     protected CarouselView setShowIndicator(boolean showIndicator) {
         isShowIndicator = showIndicator;
+        return this;
+    }
+
+    protected CarouselView setShowTitle(boolean showTitle) {
+        this.showTitle = showTitle;
         return this;
     }
 
@@ -241,7 +282,10 @@ public class CarouselView extends RelativeLayout {
      */
     protected void start() {
         if (null == imageUrls || imageUrls.isEmpty()) {
-            throw new NullPointerException("Images must not be null!");
+            throw new NullPointerException("Image list must not be null!");
+        }
+        if (showTitle && (null == titles || titles.isEmpty())) {
+            throw new NullPointerException("Title list must not be null!");
         }
         if (null == imageloaderListener) {
             throw new NullPointerException("ImageLoaderListener must not be null!");
@@ -256,7 +300,8 @@ public class CarouselView extends RelativeLayout {
             indicatorViews = new ArrayList<>();
             addIndicator();
         }
-        loopPageAdapter = new CarouselLoopPageAdapter(vpCarousel, imageUrls, imageloaderListener);
+        loopPageAdapter = new CarouselLoopPageAdapter(vpCarousel, imageUrls, titles, showTitle
+                , titleColor, titleSize, titleMarginBottom, imageloaderListener);
         if (onItemClickListener != null) {
             setOnItemClickListener(onItemClickListener);
         }

@@ -27,6 +27,8 @@ public class TestFragmentTwo extends Fragment {
 
     private List<String> imageUrls;
 
+    private List<String> titles;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -38,13 +40,21 @@ public class TestFragmentTwo extends Fragment {
 
     private void initData() {
         imageUrls = new ArrayList<>();
+        titles = new ArrayList<>();
         imageUrls.add("http://img0.imgtn.bdimg.com/it/u=2334645085,3449212359&fm=23&gp=0.jpg");
         imageUrls.add("http://pic18.nipic.com/20120115/4999414_151322555150_2.jpg");
         imageUrls.add("http://att.bbs.duowan.com/forum/201204/30/201115l6j65f42kjuljluf.jpg");
+        imageUrls.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1492060262991&di=4c3e773b8229057c53b1c36bf16d54c4&imgtype=0&src=http%3A%2F%2Fpic30.nipic.com%2F20130621%2F11295670_223619063339_2.jpg");
+        titles.add("我是标题一");
+        titles.add("我是标题二");
+        titles.add("我是标题三");
+        titles.add("我是标题四");
         carouselView.with(this)
                 .setImageUrls(imageUrls)
+                .setTitles(titles)
                 .setDealyTime(4 * 1000)
                 .setShowIndicator(true)
+                .setShowTitle(true)
                 .setAutoSwitch(true)
                 .setImageLoaderListener(new ImageloaderListener() {
                     @Override

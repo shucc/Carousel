@@ -17,7 +17,7 @@ allprojects {
 在使用库的module中添加,为避免重复引用,推荐使用exclude::
 ```groovy
 dependencies {
-    compile ('com.github.shucc:Carousel:v1.0') {
+    compile ('com.github.shucc:Carousel:v1.1') {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 }
@@ -36,6 +36,10 @@ dependencies {
 | carousel_indicator_margin_bottom | dimension | 指示符距离底部距离,默认16dp
 | carousel_indicator_drawable_selected | reference | 指示符选中图标,默认图标为红色小圆点
 | carousel_indicator_drawable_unselected | reference | 指示符未选中图标,默认图标为白色小圆点
+| carousel_show_title | boolean | 是否显示标题,默认不显示
+| carousel_title_size | dimension | 标题文字大小,默认16sp
+| carousel_title_color | color | 标题文字颜色,默认白色
+| carousel_title_margin_bottom | dimension | 标题距离底端距离，默认30dp
 
 ## How do I use Carousel?
 
@@ -56,26 +60,29 @@ dependencies {
         app:carousel_indicator_width="24dp"
         app:carousel_indicator_height="2dp"
         app:carousel_indicator_padding="8dp"
-        app:carousel_indicator_margin_bottom="8dp"/>
+        app:carousel_indicator_margin_bottom="8dp"
+        app:carousel_title_margin_bottom="18dp"/>
 
 </LinearLayout>
 ```
 
 ```java
-carouselView.with(this)
-        .setImageUrls(imageUrls)
-        .setDealyTime(4 * 1000)
-        .setShowIndicator(true)
-        .setAutoSwitch(true)
-        .setImageLoaderListener(new ImageloaderListener() {
-            @Override
-            public void loadImage(Context context, ImageView imageView, int position) {
-                Glide.with(context)
-                        .load(imageUrls.get(position))
-                        .into(imageView);
-            }
-        })
-        .start();
+        carouselView.with(this)
+                .setImageUrls(imageUrls)
+                .setTitles(titles)
+                .setDealyTime(4 * 1000)
+                .setShowIndicator(true)
+                .setShowTitle(true)
+                .setAutoSwitch(true)
+                .setImageLoaderListener(new ImageloaderListener() {
+                    @Override
+                    public void loadImage(Context context, ImageView imageView, int position) {
+                        Glide.with(context)
+                                .load(imageUrls.get(position))
+                                .into(imageView);
+                    }
+                })
+                .start();
 ```
 
 ## Demo

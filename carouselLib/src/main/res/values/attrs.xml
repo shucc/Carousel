@@ -10,5 +10,9 @@
         <attr name="carousel_indicator_margin_bottom" format="dimension" />
         <attr name="carousel_indicator_drawable_selected" format="reference" />
         <attr name="carousel_indicator_drawable_unselected" format="reference" />
+        <attr name="carousel_show_title" format="boolean" />
+        <attr name="carousel_title_size" format="dimension" />
+        <attr name="carousel_title_color" format="color" />
+        <attr name="carousel_title_margin_bottom" format="dimension" />
     </declare-styleable>
 </resources>

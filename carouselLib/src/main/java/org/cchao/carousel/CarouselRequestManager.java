@@ -21,6 +21,11 @@ public class CarouselRequestManager {
         return this;
     }
 
+    public CarouselRequestManager setTitles(List<String> titles) {
+        carouselView.setTitles(titles);
+        return this;
+    }
+
     public CarouselRequestManager setAutoSwitch(boolean autoSwitch) {
         carouselView.setAutoSwitch(autoSwitch);
         return this;
@@ -33,6 +38,11 @@ public class CarouselRequestManager {
 
     public CarouselRequestManager setShowIndicator(boolean showIndicator) {
         carouselView.setShowIndicator(showIndicator);
+        return this;
+    }
+
+    public CarouselRequestManager setShowTitle(boolean showTitle) {
+        carouselView.setShowTitle(showTitle);
         return this;
     }
 
