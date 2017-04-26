@@ -3,6 +3,7 @@ package org.cchao.carousel;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import org.cchao.carousel.listener.ImageloaderListener;
 import org.cchao.carousel.listener.OnItemClickListener;
+import org.cchao.carousel.listener.OnPageListener;
 
 import java.util.List;
 
@@ -22,6 +24,8 @@ import java.util.List;
  */
 public class CarouselLoopPageAdapter extends PagerAdapter implements ViewPager.OnPageChangeListener {
 
+    private final String TAG = getClass().getName();
+    
     private CarouselViewPager viewPager;
 
     private List<String> imageUrls;
@@ -47,6 +51,8 @@ public class CarouselLoopPageAdapter extends PagerAdapter implements ViewPager.O
     private ImageloaderListener imageloaderListener;
 
     private OnItemClickListener onItemClickListener;
+
+    private OnPageListener onPageListener;
 
     private OnPageSelectedListener onPageSelectedListener;
 
@@ -76,6 +82,10 @@ public class CarouselLoopPageAdapter extends PagerAdapter implements ViewPager.O
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
+    }
+
+    public void setOnPageListener(OnPageListener onPageListener) {
+        this.onPageListener = onPageListener;
     }
 
     public void setRealCurrentItem(int position) {
@@ -150,16 +160,23 @@ public class CarouselLoopPageAdapter extends PagerAdapter implements ViewPager.O
         if (onPageSelectedListener != null) {
             onPageSelectedListener.onPageSelected(position % fragmentSize);
         }
+        if (onPageListener != null) {
+            onPageListener.onPageSelected(position % fragmentSize);
+        }
     }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        
+        if (onPageListener != null) {
+            onPageListener.onPageScrolled(position, positionOffset, positionOffsetPixels);
+        }
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
-        
+        if (onPageListener != null) {
+            onPageListener.onPageScrollStateChanged(state);
+        }
     }
 
     protected interface OnPageSelectedListener {

@@ -21,6 +21,7 @@ import org.cchao.carousel.app.CarouselFragment;
 import org.cchao.carousel.listener.CarouselLifecycleListener;
 import org.cchao.carousel.listener.ImageloaderListener;
 import org.cchao.carousel.listener.OnItemClickListener;
+import org.cchao.carousel.listener.OnPageListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -93,6 +94,8 @@ public class CarouselView extends FrameLayout {
     private ImageloaderListener imageloaderListener;
 
     private OnItemClickListener onItemClickListener;
+
+    private OnPageListener onPageListener;
 
     private CarouselLifecycleListener carouselLifecycleListener;
 
@@ -277,12 +280,14 @@ public class CarouselView extends FrameLayout {
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.onItemClickListener = listener;
         if (loopPageAdapter != null) {
-            loopPageAdapter.setOnItemClickListener(new OnItemClickListener() {
-                @Override
-                public void onClick(View view, int position) {
-                    onItemClickListener.onClick(view, position);
-                }
-            });
+            loopPageAdapter.setOnItemClickListener(listener);
+        }
+    }
+
+    public void setOnPageListener(OnPageListener onPageListener) {
+        this.onPageListener = onPageListener;
+        if (loopPageAdapter != null) {
+            loopPageAdapter.setOnPageListener(onPageListener);
         }
     }
 
