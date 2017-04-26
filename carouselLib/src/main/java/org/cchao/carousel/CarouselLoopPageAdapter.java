@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class CarouselLoopPageAdapter extends PagerAdapter implements ViewPager.OnPageChangeListener {
 
-    private ViewPager viewPager;
+    private CarouselViewPager viewPager;
 
     private List<String> imageUrls;
 
@@ -50,7 +50,7 @@ public class CarouselLoopPageAdapter extends PagerAdapter implements ViewPager.O
 
     private OnPageSelectedListener onPageSelectedListener;
 
-    public CarouselLoopPageAdapter(ViewPager viewPager, boolean canLoop, List<String> imageUrls, List<String> titles
+    public CarouselLoopPageAdapter(CarouselViewPager viewPager, boolean canLoop, List<String> imageUrls, List<String> titles
             , boolean showTitle, int titleColor, int titleSize, int titleMarginBottom, ImageloaderListener imageloaderListener) {
         this.viewPager = viewPager;
         this.canLoop = canLoop;

@@ -13,9 +13,9 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import org.cchao.carousel.app.CarouselFragment;
 import org.cchao.carousel.listener.CarouselLifecycleListener;
@@ -29,7 +29,7 @@ import java.util.List;
  * Created by shucc on 17/3/30.
  * cc@cchao.org
  */
-public class CarouselView extends RelativeLayout {
+public class CarouselView extends FrameLayout {
 
     private final String TAG = getClass().getName();
 
@@ -84,7 +84,7 @@ public class CarouselView extends RelativeLayout {
 
     private List<String> titles;
 
-    private ViewPager vpCarousel;
+    private CarouselViewPager vpCarousel;
 
     private LinearLayout llIndicator;
 
@@ -182,7 +182,7 @@ public class CarouselView extends RelativeLayout {
 
     private void bindView(Context context) {
         View view = LayoutInflater.from(context).inflate(R.layout.carousel, this, true);
-        vpCarousel = (ViewPager) view.findViewById(R.id.vp_carousel);
+        vpCarousel = (CarouselViewPager) view.findViewById(R.id.vp_carousel);
         llIndicator = (LinearLayout) view.findViewById(R.id.ll_carousel_indicator);
     }
 
