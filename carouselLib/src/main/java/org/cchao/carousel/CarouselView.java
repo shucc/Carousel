@@ -46,6 +46,9 @@ public class CarouselView extends RelativeLayout {
     //是否自动切换
     private boolean isAutoSwitch;
 
+    //能否手动循环切换
+    private boolean canLoop;
+
     //是否显示indicator
     private boolean isShowIndicator;
 
@@ -153,6 +156,7 @@ public class CarouselView extends RelativeLayout {
         TypedArray typedArray = context.obtainStyledAttributes(attributeSet, R.styleable.CarouselView);
         delayTime = typedArray.getInt(R.styleable.CarouselView_carousel_delayTime, DEFAULT_DELAY_TIME);
         isAutoSwitch = typedArray.getBoolean(R.styleable.CarouselView_carousel_auto_switch, false);
+        canLoop = typedArray.getBoolean(R.styleable.CarouselView_carousel_can_loop, true);
         isShowIndicator = typedArray.getBoolean(R.styleable.CarouselView_carousel_show_indicator, false);
         indicatorWidth = typedArray.getDimensionPixelOffset(R.styleable.CarouselView_carousel_indicator_width
                 , getResources().getDimensionPixelOffset(R.dimen.carousel_default_indicator_width));
@@ -245,6 +249,11 @@ public class CarouselView extends RelativeLayout {
         return this;
     }
 
+    protected CarouselView setCanLoop(boolean canLoop) {
+        this.canLoop = canLoop;
+        return this;
+    }
+
     protected CarouselView setDealyTime(int dealyTime) {
         this.delayTime = dealyTime;
         return this;
@@ -300,7 +309,7 @@ public class CarouselView extends RelativeLayout {
             indicatorViews = new ArrayList<>();
             addIndicator();
         }
-        loopPageAdapter = new CarouselLoopPageAdapter(vpCarousel, imageUrls, titles, showTitle
+        loopPageAdapter = new CarouselLoopPageAdapter(vpCarousel, canLoop, imageUrls, titles, showTitle
                 , titleColor, titleSize, titleMarginBottom, imageloaderListener);
         if (onItemClickListener != null) {
             setOnItemClickListener(onItemClickListener);
@@ -320,7 +329,7 @@ public class CarouselView extends RelativeLayout {
         });
         vpCarousel.setAdapter(loopPageAdapter);
         if (imageSize > 1) {
-            vpCarousel.setCurrentItem(imageUrls.size() * 10000);
+            vpCarousel.setCurrentItem(canLoop ? imageUrls.size() * 10000 : 0);
         }
         resume();
     }

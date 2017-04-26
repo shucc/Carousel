@@ -17,7 +17,7 @@ allprojects {
 在使用库的module中添加,为避免重复引用,推荐使用exclude::
 ```groovy
 dependencies {
-    compile ('com.github.shucc:Carousel:v1.1') {
+    compile ('com.github.shucc:Carousel:v1.2') {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 }
@@ -29,6 +29,7 @@ dependencies {
 |:---:|:---:|:---:|
 | carousel_delayTime | integer | 自动切换间隔时间,默认5s
 | carousel_auto_switch | boolean | 是否自动切换,默认不自动切换
+| carousel_can_loop | boolean | 能否循环切换,默认可以循环切换
 | carousel_show_indicator | boolean | 是否显示指示符,默认不显示
 | carousel_indicator_width | dimension | 指示符宽度,默认5dp
 | carousel_indicator_height | dimension | 指示符高度,默认5dp

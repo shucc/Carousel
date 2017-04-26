@@ -30,6 +30,8 @@ public class CarouselLoopPageAdapter extends PagerAdapter implements ViewPager.O
 
     private boolean showTitle;
 
+    private boolean canLoop;
+
     private int titleColor;
 
     private int titleSize;
@@ -48,9 +50,10 @@ public class CarouselLoopPageAdapter extends PagerAdapter implements ViewPager.O
 
     private OnPageSelectedListener onPageSelectedListener;
 
-    public CarouselLoopPageAdapter(ViewPager viewPager, List<String> imageUrls, List<String> titles
+    public CarouselLoopPageAdapter(ViewPager viewPager, boolean canLoop, List<String> imageUrls, List<String> titles
             , boolean showTitle, int titleColor, int titleSize, int titleMarginBottom, ImageloaderListener imageloaderListener) {
         this.viewPager = viewPager;
+        this.canLoop = canLoop;
         this.imageUrls = imageUrls;
         this.showTitle = showTitle;
         this.titles = titles;
@@ -60,7 +63,11 @@ public class CarouselLoopPageAdapter extends PagerAdapter implements ViewPager.O
         this.imageloaderListener = imageloaderListener;
         fragmentSize = imageUrls.size();
         viewPager.setOnPageChangeListener(this);
-        nowSelect = fragmentSize * 10000;
+        if (!canLoop) {
+            nowSelect = 0;
+        } else {
+            nowSelect = fragmentSize * 10000;
+        }
     }
 
     public void setOnPageSelectedListener(OnPageSelectedListener onPageSelectedListener) {
@@ -72,11 +79,15 @@ public class CarouselLoopPageAdapter extends PagerAdapter implements ViewPager.O
     }
 
     public void setRealCurrentItem(int position) {
-        int index = position - (nowSelect % fragmentSize);
-        if (index < 0) {
-            index = index + fragmentSize;
+        if (canLoop) {
+            int index = position - (nowSelect % fragmentSize);
+            if (index < 0) {
+                index = index + fragmentSize;
+            }
+            viewPager.setCurrentItem(nowSelect + index, true);
+        } else {
+            viewPager.setCurrentItem(position % fragmentSize, true);
         }
-        viewPager.setCurrentItem(nowSelect + index, true);
     }
 
     @Override
@@ -84,7 +95,11 @@ public class CarouselLoopPageAdapter extends PagerAdapter implements ViewPager.O
         if (imageUrls.size() == 1) {
             return 1;
         }
-        return Integer.MAX_VALUE;
+        if (canLoop) {
+            return Integer.MAX_VALUE;
+        } else {
+            return fragmentSize;
+        }
     }
 
     @Override

@@ -31,6 +31,11 @@ public class CarouselRequestManager {
         return this;
     }
 
+    public CarouselRequestManager setCanLoop(boolean canLoop) {
+        carouselView.setCanLoop(canLoop);
+        return this;
+    }
+
     public CarouselRequestManager setDealyTime(int dealyTime) {
         carouselView.setDealyTime(dealyTime);
         return this;

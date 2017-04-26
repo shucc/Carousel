@@ -56,6 +56,7 @@ public class TestFragmentTwo extends Fragment {
                 .setShowIndicator(true)
                 .setShowTitle(true)
                 .setAutoSwitch(true)
+                .setCanLoop(false)
                 .setImageLoaderListener(new ImageloaderListener() {
                     @Override
                     public void loadImage(Context context, ImageView imageView, int position) {
