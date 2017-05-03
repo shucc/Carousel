@@ -51,6 +51,11 @@ public class CarouselRequestManager {
         return this;
     }
 
+    public CarouselRequestManager setInterceptParent(boolean interceptParent) {
+        carouselView.setInterceptParent(interceptParent);
+        return this;
+    }
+
     public CarouselRequestManager setImageLoaderListener(ImageloaderListener imageLoaderListener) {
         carouselView.setImageLoaderListener(imageLoaderListener);
         return this;

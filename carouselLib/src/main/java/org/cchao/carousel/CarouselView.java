@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -79,6 +80,9 @@ public class CarouselView extends FrameLayout {
     //title距离底部距离
     private int titleMarginBottom;
 
+    //ViewPager是否进行事件拦截
+    private boolean interceptParent = true;
+
     private Context context;
 
     private List<String> imageUrls;
@@ -141,6 +145,7 @@ public class CarouselView extends FrameLayout {
         carouselLifecycleListener = new CarouselLifecycleListener() {
             @Override
             public void onStop() {
+                Log.d(TAG, "onStop: ");
                 if (isAutoSwitch) {
                     stop();
                 }
@@ -148,6 +153,7 @@ public class CarouselView extends FrameLayout {
 
             @Override
             public void onResume() {
+                Log.d(TAG, "onResume: ");
                 if (isAutoSwitch) {
                     resume();
                 }
@@ -272,6 +278,11 @@ public class CarouselView extends FrameLayout {
         return this;
     }
 
+    protected CarouselView setInterceptParent(boolean interceptParent) {
+        this.interceptParent = interceptParent;
+        return this;
+    }
+
     protected CarouselView setImageLoaderListener(ImageloaderListener imageLoaderListener) {
         this.imageloaderListener = imageLoaderListener;
         return this;
@@ -314,6 +325,7 @@ public class CarouselView extends FrameLayout {
             indicatorViews = new ArrayList<>();
             addIndicator();
         }
+        vpCarousel.setInterceptParent(false);
         loopPageAdapter = new CarouselLoopPageAdapter(vpCarousel, canLoop, imageUrls, titles, showTitle
                 , titleColor, titleSize, titleMarginBottom, imageloaderListener);
         if (onItemClickListener != null) {

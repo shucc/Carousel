@@ -13,11 +13,15 @@ import android.view.ViewConfiguration;
  */
 public class CarouselViewPager extends ViewPager {
 
+    private final String TAG = getClass().getName();
+
     private float startY;
     private float startX;
     // 记录viewPager是否拖拽的标记
     private boolean mIsVpDragger;
     private final int mTouchSlop;
+
+    private boolean interceptParent = true;
 
     public CarouselViewPager(Context context) {
         super(context);
@@ -31,6 +35,9 @@ public class CarouselViewPager extends ViewPager {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
+        if (!interceptParent) {
+            return super.onInterceptTouchEvent(ev);
+        }
         int action = ev.getAction();
         switch (action) {
             case MotionEvent.ACTION_DOWN:
@@ -64,5 +71,9 @@ public class CarouselViewPager extends ViewPager {
         }
         getParent().requestDisallowInterceptTouchEvent(true);
         return super.onInterceptTouchEvent(ev);
+    }
+
+    public void setInterceptParent(boolean interceptrParent) {
+        this.interceptParent = interceptrParent;
     }
 }

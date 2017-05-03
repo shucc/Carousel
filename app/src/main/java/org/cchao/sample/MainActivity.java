@@ -34,5 +34,11 @@ public class MainActivity extends AppCompatActivity {
                 PtrLayoutTestActivity.launch(MainActivity.this);
             }
         });
+        findViewById(R.id.button4).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewPagerTestActivity.launch(MainActivity.this);
+            }
+        });
     }
 }
