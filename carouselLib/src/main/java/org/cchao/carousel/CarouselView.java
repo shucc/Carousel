@@ -8,7 +8,6 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
@@ -169,7 +168,7 @@ public class CarouselView extends FrameLayout {
         isShowIndicator = typedArray.getBoolean(R.styleable.CarouselView_carousel_show_indicator, false);
         indicatorWidth = typedArray.getDimensionPixelOffset(R.styleable.CarouselView_carousel_indicator_width
                 , getResources().getDimensionPixelOffset(R.dimen.carousel_default_indicator_width));
-        indicatorHeight= typedArray.getDimensionPixelOffset(R.styleable.CarouselView_carousel_indicator_height
+        indicatorHeight = typedArray.getDimensionPixelOffset(R.styleable.CarouselView_carousel_indicator_height
                 , getResources().getDimensionPixelOffset(R.dimen.carousel_default_indicator_height));
         indicatorPadding = typedArray.getDimensionPixelOffset(R.styleable.CarouselView_carousel_indicator_padding
                 , getResources().getDimensionPixelOffset(R.dimen.carousel_default_indicator_padding));
@@ -331,6 +330,8 @@ public class CarouselView extends FrameLayout {
         if (onItemClickListener != null) {
             setOnItemClickListener(onItemClickListener);
         }
+        preSelect = 0;
+        nowSelect = 0;
         loopPageAdapter.setOnPageSelectedListener(new CarouselLoopPageAdapter.OnPageSelectedListener() {
             @Override
             public void onPageSelected(int position) {

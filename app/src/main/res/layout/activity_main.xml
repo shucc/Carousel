@@ -28,4 +28,10 @@
         android:layout_height="48dp"
         android:text="ViewPager"/>
 
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="BottomTab"/>
+
 </LinearLayout>

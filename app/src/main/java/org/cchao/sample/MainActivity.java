@@ -40,5 +40,11 @@ public class MainActivity extends AppCompatActivity {
                 ViewPagerTestActivity.launch(MainActivity.this);
             }
         });
+        findViewById(R.id.button5).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BottomTabActivity.launch(MainActivity.this);
+            }
+        });
     }
 }

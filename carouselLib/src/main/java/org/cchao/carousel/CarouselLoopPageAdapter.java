@@ -3,7 +3,6 @@ package org.cchao.carousel;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +24,7 @@ import java.util.List;
 public class CarouselLoopPageAdapter extends PagerAdapter implements ViewPager.OnPageChangeListener {
 
     private final String TAG = getClass().getName();
-    
+
     private CarouselViewPager viewPager;
 
     private List<String> imageUrls;
@@ -43,7 +42,7 @@ public class CarouselLoopPageAdapter extends PagerAdapter implements ViewPager.O
     private int titleMarginBottom;
 
     private int nowSelect;
-    
+
     private int fragmentSize = 0;
 
     private Context context;
@@ -119,7 +118,7 @@ public class CarouselLoopPageAdapter extends PagerAdapter implements ViewPager.O
         View view = LayoutInflater.from(context).inflate(R.layout.carousel_item, container, false);
         final ImageView imageView = (ImageView) view.findViewById(R.id.img_carousel);
 
-        if (showTitle && pos < titles.size()){
+        if (showTitle && pos < titles.size()) {
             TextView textTitle = (TextView) view.findViewById(R.id.text_carousel_title);
             RelativeLayout.MarginLayoutParams params = (RelativeLayout.MarginLayoutParams) textTitle.getLayoutParams();
             params.bottomMargin = titleMarginBottom;

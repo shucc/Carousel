@@ -3,7 +3,6 @@ package org.cchao.carousel;
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
 
@@ -18,19 +17,19 @@ public class CarouselViewPager extends ViewPager {
     private float startY;
     private float startX;
     // 记录viewPager是否拖拽的标记
-    private boolean mIsVpDragger;
-    private final int mTouchSlop;
+    private boolean isVPDragger;
+    private final int touchSlop;
 
     private boolean interceptParent = true;
 
     public CarouselViewPager(Context context) {
         super(context);
-        mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
+        touchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
     }
 
     public CarouselViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
+        touchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
     }
 
     @Override
@@ -45,11 +44,11 @@ public class CarouselViewPager extends ViewPager {
                 startY = ev.getY();
                 startX = ev.getX();
                 // 初始化标记
-                mIsVpDragger = false;
+                isVPDragger = false;
                 break;
             case MotionEvent.ACTION_MOVE:
                 // 如果viewpager正在拖拽中，那么不拦截它的事件，直接return false；
-                if(mIsVpDragger) {
+                if (isVPDragger) {
                     return false;
                 }
                 // 获取当前手指位置
@@ -57,8 +56,8 @@ public class CarouselViewPager extends ViewPager {
                 float endX = ev.getX();
                 float distanceX = Math.abs(endX - startX);
                 float distanceY = Math.abs(endY - startY);
-                if (distanceY > mTouchSlop && distanceY > distanceX) {
-                    mIsVpDragger = true;
+                if (distanceY > touchSlop && distanceY > distanceX) {
+                    isVPDragger = true;
                     getParent().requestDisallowInterceptTouchEvent(false);
                     return false;
                 }
@@ -66,7 +65,7 @@ public class CarouselViewPager extends ViewPager {
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
                 // 初始化标记
-                mIsVpDragger = false;
+                isVPDragger = false;
                 break;
         }
         getParent().requestDisallowInterceptTouchEvent(true);

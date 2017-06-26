@@ -67,7 +67,7 @@ public class FragmentTestActivity extends AppCompatActivity {
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.fl_one, new TestFragmentOne()).commitAllowingStateLoss();
 
-        android.app.FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.fl_two, new TestFragmentTwo()).commitAllowingStateLoss();
     }
 }

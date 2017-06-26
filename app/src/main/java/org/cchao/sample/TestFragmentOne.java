@@ -61,4 +61,14 @@ public class TestFragmentOne extends Fragment {
                 })
                 .start();
     }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden) {
+            carouselView.stop();
+        } else {
+            carouselView.resume();
+        }
+    }
 }
