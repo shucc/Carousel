@@ -26,7 +26,9 @@ public class CarouselFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        carouselLifecycleListener.onResume();
+        if (null != carouselLifecycleListener) {
+            carouselLifecycleListener.onResume();
+        }
     }
 
     @Override
@@ -37,7 +39,9 @@ public class CarouselFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        carouselLifecycleListener.onStop();
+        if (null != carouselLifecycleListener) {
+            carouselLifecycleListener.onStop();
+        }
     }
 
     @Override
