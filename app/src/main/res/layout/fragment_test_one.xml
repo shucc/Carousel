@@ -9,7 +9,7 @@
         android:id="@+id/carouselView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:carousel_delayTime="3000"
+        app:carousel_delayTime="2000"
         app:carousel_show_indicator="true"
         app:carousel_auto_switch="true"
         app:carousel_indicator_width="10dp"
