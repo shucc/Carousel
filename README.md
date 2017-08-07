@@ -89,6 +89,6 @@ dependencies {
 
 ## Demo
 
-![](https://github.com/shucc/Carousel/blob/master/demo/demo1.gif)
-![](https://github.com/shucc/Carousel/blob/master/demo/demo2.gif)
-![](https://github.com/shucc/Carousel/blob/master/demo/demo3.gif)
+![](https://raw.githubusercontent.com/shucc/Carousel/master/demo/demo1.gif)
+![](https://raw.githubusercontent.com/shucc/Carousel/master/demo/demo2.gif)
+![](https://raw.githubusercontent.com/shucc/Carousel/master/demo/demo3.gif)
