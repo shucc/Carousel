@@ -48,7 +48,7 @@ public class FragmentTestActivity extends AppCompatActivity {
         });
         carouselView
                 .with(this)
-                .setImageUrls(imageUrls)
+                .setImageSize(imageUrls.size())
                 .setDealyTime(5 * 1000)
                 .setShowIndicator(true)
                 .setAutoSwitch(true)

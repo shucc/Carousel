@@ -16,8 +16,8 @@ public class CarouselRequestManager {
         this.carouselView = carouselView;
     }
 
-    public CarouselRequestManager setImageUrls(List<String> imageUrls) {
-        carouselView.setImageUrls(imageUrls);
+    public CarouselRequestManager setImageSize(int imageSize) {
+        carouselView.setImageSize(imageSize);
         return this;
     }
 

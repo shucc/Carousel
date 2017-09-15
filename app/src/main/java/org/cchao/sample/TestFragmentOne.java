@@ -50,7 +50,7 @@ public class TestFragmentOne extends Fragment {
         imageUrls.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1491387197409&di=03873637a14711a3c0435d93024adb63&imgtype=0&src=http%3A%2F%2Fpic37.nipic.com%2F20140107%2F17589918_003530809000_2.jpg");
         imageUrls.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1491387197409&di=bc41cecf5921c4c5cdc647d1e14fae08&imgtype=0&src=http%3A%2F%2Fpic46.nipic.com%2F20140823%2F18505720_094237483000_2.jpg");
         carouselView.with(this)
-                .setImageUrls(imageUrls)
+                .setImageSize(imageUrls.size())
                 .setImageLoaderListener(new ImageloaderListener() {
                     @Override
                     public void loadImage(Context context, ImageView imageView, int position) {

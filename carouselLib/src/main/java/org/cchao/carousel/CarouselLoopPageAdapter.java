@@ -27,8 +27,6 @@ public class CarouselLoopPageAdapter extends PagerAdapter implements ViewPager.O
 
     private CarouselViewPager viewPager;
 
-    private List<String> imageUrls;
-
     private List<String> titles;
 
     private boolean showTitle;
@@ -55,18 +53,17 @@ public class CarouselLoopPageAdapter extends PagerAdapter implements ViewPager.O
 
     private OnPageSelectedListener onPageSelectedListener;
 
-    public CarouselLoopPageAdapter(CarouselViewPager viewPager, boolean canLoop, List<String> imageUrls, List<String> titles
+    public CarouselLoopPageAdapter(CarouselViewPager viewPager, boolean canLoop, int imageSize, List<String> titles
             , boolean showTitle, int titleColor, int titleSize, int titleMarginBottom, ImageloaderListener imageloaderListener) {
         this.viewPager = viewPager;
         this.canLoop = canLoop;
-        this.imageUrls = imageUrls;
         this.showTitle = showTitle;
         this.titles = titles;
         this.titleColor = titleColor;
         this.titleSize = titleSize;
         this.titleMarginBottom = titleMarginBottom;
         this.imageloaderListener = imageloaderListener;
-        fragmentSize = imageUrls.size();
+        fragmentSize = imageSize;
         viewPager.setOnPageChangeListener(this);
         if (!canLoop) {
             nowSelect = 0;
@@ -101,7 +98,7 @@ public class CarouselLoopPageAdapter extends PagerAdapter implements ViewPager.O
 
     @Override
     public int getCount() {
-        if (imageUrls.size() == 1) {
+        if (fragmentSize == 1) {
             return 1;
         }
         if (canLoop) {

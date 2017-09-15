@@ -72,7 +72,7 @@ public class PtrLayoutTestActivity extends AppCompatActivity {
         imageUrls.add("http://pic18.nipic.com/20120115/4999414_151322555150_2.jpg");
         imageUrls.add("http://att.bbs.duowan.com/forum/201204/30/201115l6j65f42kjuljluf.jpg");
         carouselView.with(this)
-                .setImageUrls(imageUrls)
+                .setImageSize(imageUrls.size())
                 .setDealyTime(5 * 1000)
                 .setShowIndicator(true)
                 .setAutoSwitch(false)

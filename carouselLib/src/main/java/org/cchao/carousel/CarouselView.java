@@ -84,8 +84,6 @@ public class CarouselView extends FrameLayout {
 
     private Context context;
 
-    private List<String> imageUrls;
-
     private List<String> titles;
 
     private CarouselViewPager vpCarousel;
@@ -139,7 +137,6 @@ public class CarouselView extends FrameLayout {
         initTypedArray(attrs);
         bindView(context);
         initView();
-        imageUrls = new ArrayList<>();
         titles = new ArrayList<>();
         carouselLifecycleListener = new CarouselLifecycleListener() {
             @Override
@@ -239,11 +236,8 @@ public class CarouselView extends FrameLayout {
         return new CarouselRequestManager(this);
     }
 
-    protected CarouselView setImageUrls(List<String> imageUrls) {
-        this.imageUrls = imageUrls;
-        if (null != imageUrls) {
-            imageSize = imageUrls.size();
-        }
+    protected CarouselView setImageSize(int imageSize) {
+        this.imageSize = imageSize;
         return this;
     }
 
@@ -305,7 +299,7 @@ public class CarouselView extends FrameLayout {
      * 开始轮播
      */
     protected void start() {
-        if (null == imageUrls || imageUrls.isEmpty()) {
+        if (imageSize <= 0) {
             throw new NullPointerException("Image list must not be null!");
         }
         if (showTitle && (null == titles || titles.isEmpty())) {
@@ -325,7 +319,7 @@ public class CarouselView extends FrameLayout {
             addIndicator();
         }
         vpCarousel.setInterceptParent(false);
-        loopPageAdapter = new CarouselLoopPageAdapter(vpCarousel, canLoop, imageUrls, titles, showTitle
+        loopPageAdapter = new CarouselLoopPageAdapter(vpCarousel, canLoop, imageSize, titles, showTitle
                 , titleColor, titleSize, titleMarginBottom, imageloaderListener);
         if (onItemClickListener != null) {
             setOnItemClickListener(onItemClickListener);
@@ -347,7 +341,7 @@ public class CarouselView extends FrameLayout {
         });
         vpCarousel.setAdapter(loopPageAdapter);
         if (imageSize > 1) {
-            vpCarousel.setCurrentItem(canLoop ? imageUrls.size() * 10000 : 0);
+            vpCarousel.setCurrentItem(canLoop ? imageSize * 10000 : 0);
         }
         resume();
     }

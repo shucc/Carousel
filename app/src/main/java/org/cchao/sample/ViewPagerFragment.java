@@ -67,7 +67,7 @@ public class ViewPagerFragment extends Fragment {
         titles.add("我是标题三");
         titles.add("我是标题四");
         carouselView.with(this)
-                .setImageUrls(imageUrls)
+                .setImageSize(imageUrls.size())
                 .setTitles(titles)
                 .setDealyTime(4 * 1000)
                 .setShowIndicator(true)
