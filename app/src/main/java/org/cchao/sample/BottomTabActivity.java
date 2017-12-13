@@ -44,9 +44,9 @@ public class BottomTabActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bottom_tab);
 
-        textOne = (TextView) findViewById(R.id.text_one);
-        textTwo = (TextView) findViewById(R.id.text_two);
-        textThree = (TextView) findViewById(R.id.text_three);
+        textOne = findViewById(R.id.text_one);
+        textTwo = findViewById(R.id.text_two);
+        textThree = findViewById(R.id.text_three);
 
         textViews = new ArrayList<>();
         fragments = new SparseArray<>();

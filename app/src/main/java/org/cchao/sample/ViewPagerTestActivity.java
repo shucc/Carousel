@@ -32,7 +32,7 @@ public class ViewPagerTestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewpager);
 
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        viewPager = findViewById(R.id.viewPager);
 
         fragments = new ArrayList<>();
         fragments.add(ViewPagerFragment.newInstance());

@@ -10,10 +10,10 @@
         android:layout_height="match_parent"
         app:carousel_indicator_drawable_selected="@drawable/ic_indicator_selected"
         app:carousel_indicator_drawable_unselected="@drawable/ic_indicator_unselected"
-        app:carousel_indicator_width="24dp"
         app:carousel_indicator_height="2dp"
-        app:carousel_indicator_padding="8dp"
         app:carousel_indicator_margin_bottom="8dp"
-        app:carousel_title_margin_bottom="18dp"/>
+        app:carousel_indicator_padding="8dp"
+        app:carousel_indicator_width="24dp"
+        app:carousel_title_margin_bottom="18dp" />
 
 </RelativeLayout>

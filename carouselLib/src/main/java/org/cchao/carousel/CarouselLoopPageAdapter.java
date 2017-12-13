@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import org.cchao.carousel.listener.ImageloaderListener;
+import org.cchao.carousel.listener.ImageLoaderListener;
 import org.cchao.carousel.listener.OnItemClickListener;
 import org.cchao.carousel.listener.OnPageListener;
 
@@ -45,7 +45,7 @@ public class CarouselLoopPageAdapter extends PagerAdapter implements ViewPager.O
 
     private Context context;
 
-    private ImageloaderListener imageloaderListener;
+    private ImageLoaderListener imageloaderListener;
 
     private OnItemClickListener onItemClickListener;
 
@@ -54,7 +54,7 @@ public class CarouselLoopPageAdapter extends PagerAdapter implements ViewPager.O
     private OnPageSelectedListener onPageSelectedListener;
 
     public CarouselLoopPageAdapter(CarouselViewPager viewPager, boolean canLoop, int imageSize, List<String> titles
-            , boolean showTitle, int titleColor, int titleSize, int titleMarginBottom, ImageloaderListener imageloaderListener) {
+            , boolean showTitle, int titleColor, int titleSize, int titleMarginBottom, ImageLoaderListener imageloaderListener) {
         this.viewPager = viewPager;
         this.canLoop = canLoop;
         this.showTitle = showTitle;
@@ -113,10 +113,9 @@ public class CarouselLoopPageAdapter extends PagerAdapter implements ViewPager.O
         final int pos = position % fragmentSize;
         context = container.getContext();
         View view = LayoutInflater.from(context).inflate(R.layout.carousel_item, container, false);
-        final ImageView imageView = (ImageView) view.findViewById(R.id.img_carousel);
-
+        final ImageView imageView = view.findViewById(R.id.img_carousel);
         if (showTitle && pos < titles.size()) {
-            TextView textTitle = (TextView) view.findViewById(R.id.text_carousel_title);
+            TextView textTitle = view.findViewById(R.id.text_carousel_title);
             RelativeLayout.MarginLayoutParams params = (RelativeLayout.MarginLayoutParams) textTitle.getLayoutParams();
             params.bottomMargin = titleMarginBottom;
             textTitle.setLayoutParams(params);

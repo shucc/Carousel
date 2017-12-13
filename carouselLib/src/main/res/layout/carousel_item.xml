@@ -9,26 +9,26 @@
         android:id="@+id/img_carousel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop" />
 
     <View
         android:id="@+id/view_carousel_shadow"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/ic_default_shadow"/>
+        android:background="@drawable/ic_default_shadow"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/text_carousel_title"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
         android:gravity="center"
-        android:textSize="16sp"
         android:textColor="@android:color/white"
-        tools:text="我是标题"/>
+        android:textSize="16sp"
+        android:visibility="gone"
+        tools:text="我是标题" />
 
 </RelativeLayout>

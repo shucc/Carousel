@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import org.cchao.carousel.CarouselView;
-import org.cchao.carousel.listener.ImageloaderListener;
+import org.cchao.carousel.listener.ImageLoaderListener;
 import org.cchao.carousel.listener.OnItemClickListener;
 import org.cchao.carousel.listener.OnPageListener;
 
@@ -39,7 +39,7 @@ public class TestFragmentTwo extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_test_two, container, false);
-        carouselView = (CarouselView) rootView.findViewById(R.id.carouselView);
+        carouselView = rootView.findViewById(R.id.carouselView);
         initData();
         return rootView;
     }
@@ -64,12 +64,12 @@ public class TestFragmentTwo extends Fragment {
         carouselView.with(this)
                 .setImageSize(imageUrls.size())
                 .setTitles(titles)
-                .setDealyTime(4 * 1000)
+                .setDelayTime(4 * 1000)
                 .setShowIndicator(true)
                 .setShowTitle(true)
                 .setAutoSwitch(false)
                 .setCanLoop(false)
-                .setImageLoaderListener(new ImageloaderListener() {
+                .setImageLoaderListener(new ImageLoaderListener() {
                     @Override
                     public void loadImage(Context context, ImageView imageView, int position) {
                         Glide.with(context)

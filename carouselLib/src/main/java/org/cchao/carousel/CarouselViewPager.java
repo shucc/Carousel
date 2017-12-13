@@ -72,7 +72,7 @@ public class CarouselViewPager extends ViewPager {
         return super.onInterceptTouchEvent(ev);
     }
 
-    public void setInterceptParent(boolean interceptrParent) {
-        this.interceptParent = interceptrParent;
+    public void setInterceptParent(boolean interceptParent) {
+        this.interceptParent = interceptParent;
     }
 }

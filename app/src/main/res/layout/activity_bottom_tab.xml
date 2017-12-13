@@ -12,9 +12,9 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="48dp"/>
+        android:layout_marginBottom="48dp"
+        android:background="@android:color/darker_gray" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,13 +28,13 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="16sp"
-            android:text="第一个"/>
+            android:text="第一个"
+            android:textSize="16sp" />
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@android:color/darker_gray"/>
+            android:background="@android:color/darker_gray" />
 
         <TextView
             android:id="@+id/text_two"
@@ -42,13 +42,13 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="16sp"
-            android:text="第二个"/>
+            android:text="第二个"
+            android:textSize="16sp" />
 
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="@android:color/darker_gray"/>
+            android:background="@android:color/darker_gray" />
 
         <TextView
             android:id="@+id/text_three"
@@ -56,8 +56,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="16sp"
-            android:text="第三个"/>
+            android:text="第三个"
+            android:textSize="16sp" />
 
     </LinearLayout>
 

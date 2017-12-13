@@ -1,6 +1,6 @@
 package org.cchao.carousel;
 
-import org.cchao.carousel.listener.ImageloaderListener;
+import org.cchao.carousel.listener.ImageLoaderListener;
 
 import java.util.List;
 
@@ -36,8 +36,8 @@ public class CarouselRequestManager {
         return this;
     }
 
-    public CarouselRequestManager setDealyTime(int dealyTime) {
-        carouselView.setDealyTime(dealyTime);
+    public CarouselRequestManager setDelayTime(int delayTime) {
+        carouselView.setDelayTime(delayTime);
         return this;
     }
 
@@ -56,7 +56,7 @@ public class CarouselRequestManager {
         return this;
     }
 
-    public CarouselRequestManager setImageLoaderListener(ImageloaderListener imageLoaderListener) {
+    public CarouselRequestManager setImageLoaderListener(ImageLoaderListener imageLoaderListener) {
         carouselView.setImageLoaderListener(imageLoaderListener);
         return this;
     }

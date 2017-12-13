@@ -2,9 +2,9 @@ package org.cchao.sample;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import org.cchao.carousel.CarouselView;
-import org.cchao.carousel.listener.ImageloaderListener;
+import org.cchao.carousel.listener.ImageLoaderListener;
 import org.cchao.carousel.listener.OnItemClickListener;
 
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class FragmentTestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment);
-        carouselView = (CarouselView) findViewById(R.id.carouselView);
+        carouselView = findViewById(R.id.carouselView);
 
         imageUrls = new ArrayList<>();
         imageUrls.add("http://img0.imgtn.bdimg.com/it/u=2334645085,3449212359&fm=23&gp=0.jpg");
@@ -49,10 +49,10 @@ public class FragmentTestActivity extends AppCompatActivity {
         carouselView
                 .with(this)
                 .setImageSize(imageUrls.size())
-                .setDealyTime(5 * 1000)
+                .setDelayTime(5 * 1000)
                 .setShowIndicator(true)
                 .setAutoSwitch(true)
-                .setImageLoaderListener(new ImageloaderListener() {
+                .setImageLoaderListener(new ImageLoaderListener() {
                     @Override
                     public void loadImage(Context context, ImageView imageView, int position) {
                         Glide.with(context)

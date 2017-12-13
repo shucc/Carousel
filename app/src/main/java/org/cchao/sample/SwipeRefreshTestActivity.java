@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import org.cchao.carousel.CarouselView;
-import org.cchao.carousel.listener.ImageloaderListener;
+import org.cchao.carousel.listener.ImageLoaderListener;
 import org.cchao.carousel.listener.OnItemClickListener;
 
 import java.util.ArrayList;
@@ -42,8 +42,8 @@ public class SwipeRefreshTestActivity extends Activity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swiperefresh);
-        swipeRefreshLayout = (VpSwipeRefreshLayout) findViewById(R.id.swiperefresh);
-        carouselView = (CarouselView) findViewById(R.id.carouselView);
+        swipeRefreshLayout = findViewById(R.id.swiperefresh);
+        carouselView = findViewById(R.id.carouselView);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -64,10 +64,10 @@ public class SwipeRefreshTestActivity extends Activity {
         imageUrls.add("http://att.bbs.duowan.com/forum/201204/30/201115l6j65f42kjuljluf.jpg");
         carouselView.with(this)
                 .setImageSize(imageUrls.size())
-                .setDealyTime(5 * 1000)
+                .setDelayTime(5 * 1000)
                 .setShowIndicator(true)
                 .setAutoSwitch(false)
-                .setImageLoaderListener(new ImageloaderListener() {
+                .setImageLoaderListener(new ImageLoaderListener() {
                     @Override
                     public void loadImage(Context context, ImageView imageView, int position) {
                         Glide.with(context)

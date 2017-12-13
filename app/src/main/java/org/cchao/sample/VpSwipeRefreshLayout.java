@@ -36,7 +36,7 @@ public class VpSwipeRefreshLayout extends SwipeRefreshLayout {
                 break;
             case MotionEvent.ACTION_MOVE:
                 // 如果viewpager正在拖拽中，那么不拦截它的事件，直接return false；
-                if(mIsVpDragger) {
+                if (mIsVpDragger) {
                     return false;
                 }
                 // 获取当前手指位置
@@ -45,7 +45,7 @@ public class VpSwipeRefreshLayout extends SwipeRefreshLayout {
                 float distanceX = Math.abs(endX - startX);
                 float distanceY = Math.abs(endY - startY);
                 // 如果X轴位移大于Y轴位移，那么将事件交给viewPager处理。
-                if(distanceX > mTouchSlop && distanceX > distanceY) {
+                if (distanceX > mTouchSlop && distanceX > distanceY) {
                     mIsVpDragger = true;
                     return false;
                 }

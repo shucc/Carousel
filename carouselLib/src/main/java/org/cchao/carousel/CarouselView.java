@@ -9,7 +9,6 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +18,7 @@ import android.widget.RelativeLayout;
 
 import org.cchao.carousel.app.CarouselFragment;
 import org.cchao.carousel.listener.CarouselLifecycleListener;
-import org.cchao.carousel.listener.ImageloaderListener;
+import org.cchao.carousel.listener.ImageLoaderListener;
 import org.cchao.carousel.listener.OnItemClickListener;
 import org.cchao.carousel.listener.OnPageListener;
 
@@ -30,7 +29,7 @@ import java.util.List;
  * Created by shucc on 17/3/30.
  * cc@cchao.org
  */
-public class CarouselView extends FrameLayout {
+public class CarouselView extends FrameLayout implements Handler.Callback {
 
     private final String TAG = getClass().getName();
 
@@ -92,7 +91,7 @@ public class CarouselView extends FrameLayout {
 
     private CarouselLoopPageAdapter loopPageAdapter;
 
-    private ImageloaderListener imageloaderListener;
+    private ImageLoaderListener imageloaderListener;
 
     private OnItemClickListener onItemClickListener;
 
@@ -113,15 +112,7 @@ public class CarouselView extends FrameLayout {
 
     private List<View> indicatorViews;
 
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == WHAT_SWITCH) {
-                nowSelect++;
-                loopPageAdapter.setRealCurrentItem(nowSelect);
-            }
-        }
-    };
+    private Handler handler;
 
     public CarouselView(Context context) {
         this(context, null);
@@ -137,11 +128,11 @@ public class CarouselView extends FrameLayout {
         initTypedArray(attrs);
         bindView(context);
         initView();
+        handler = new Handler(this);
         titles = new ArrayList<>();
         carouselLifecycleListener = new CarouselLifecycleListener() {
             @Override
             public void onStop() {
-                Log.d(TAG, "onStop: ");
                 if (isAutoSwitch) {
                     stop();
                 }
@@ -149,7 +140,6 @@ public class CarouselView extends FrameLayout {
 
             @Override
             public void onResume() {
-                Log.d(TAG, "onResume: ");
                 if (isAutoSwitch) {
                     resume();
                 }
@@ -187,8 +177,8 @@ public class CarouselView extends FrameLayout {
 
     private void bindView(Context context) {
         View view = LayoutInflater.from(context).inflate(R.layout.carousel, this, true);
-        vpCarousel = (CarouselViewPager) view.findViewById(R.id.vp_carousel);
-        llIndicator = (LinearLayout) view.findViewById(R.id.ll_carousel_indicator);
+        vpCarousel = view.findViewById(R.id.vp_carousel);
+        llIndicator = view.findViewById(R.id.ll_carousel_indicator);
     }
 
     private void initView() {
@@ -210,6 +200,15 @@ public class CarouselView extends FrameLayout {
             widthMeasureSpec = MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY);
         }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
+    @Override
+    public boolean handleMessage(Message message) {
+        if (message.what == WHAT_SWITCH) {
+            nowSelect++;
+            loopPageAdapter.setRealCurrentItem(nowSelect);
+        }
+        return false;
     }
 
     public CarouselRequestManager with(Activity activity) {
@@ -256,8 +255,8 @@ public class CarouselView extends FrameLayout {
         return this;
     }
 
-    protected CarouselView setDealyTime(int dealyTime) {
-        this.delayTime = dealyTime;
+    protected CarouselView setDelayTime(int delayTime) {
+        this.delayTime = delayTime;
         return this;
     }
 
@@ -276,7 +275,7 @@ public class CarouselView extends FrameLayout {
         return this;
     }
 
-    protected CarouselView setImageLoaderListener(ImageloaderListener imageLoaderListener) {
+    protected CarouselView setImageLoaderListener(ImageLoaderListener imageLoaderListener) {
         this.imageloaderListener = imageLoaderListener;
         return this;
     }
@@ -329,13 +328,13 @@ public class CarouselView extends FrameLayout {
         loopPageAdapter.setOnPageSelectedListener(new CarouselLoopPageAdapter.OnPageSelectedListener() {
             @Override
             public void onPageSelected(int position) {
+                stop();
                 if (null != indicatorViews) {
                     indicatorViews.get(preSelect).setBackgroundResource(indicatorUnselected);
                     indicatorViews.get(position).setBackgroundResource(indicatorSelected);
                 }
                 preSelect = position;
                 nowSelect = position;
-                stop();
                 resume();
             }
         });
@@ -387,5 +386,13 @@ public class CarouselView extends FrameLayout {
     public void stop() {
         isPlaying = false;
         handler.removeMessages(WHAT_SWITCH);
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if (null != handler) {
+            stop();
+        }
     }
 }

@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import org.cchao.carousel.CarouselView;
-import org.cchao.carousel.listener.ImageloaderListener;
+import org.cchao.carousel.listener.ImageLoaderListener;
 import org.cchao.carousel.listener.OnItemClickListener;
 import org.cchao.sample.ptr.MyPtrClassicFrameLayout;
 
@@ -45,8 +45,8 @@ public class PtrLayoutTestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ptrlayout);
 
-        ptrLayout = (MyPtrClassicFrameLayout) findViewById(R.id.ptr_layout);
-        carouselView = (CarouselView) findViewById(R.id.carouselView);
+        ptrLayout = findViewById(R.id.ptr_layout);
+        carouselView = findViewById(R.id.carouselView);
 
         ptrLayout.disableWhenHorizontalMove(true);
         ptrLayout.setPtrHandler(new PtrHandler() {
@@ -73,10 +73,10 @@ public class PtrLayoutTestActivity extends AppCompatActivity {
         imageUrls.add("http://att.bbs.duowan.com/forum/201204/30/201115l6j65f42kjuljluf.jpg");
         carouselView.with(this)
                 .setImageSize(imageUrls.size())
-                .setDealyTime(5 * 1000)
+                .setDelayTime(5 * 1000)
                 .setShowIndicator(true)
                 .setAutoSwitch(false)
-                .setImageLoaderListener(new ImageloaderListener() {
+                .setImageLoaderListener(new ImageLoaderListener() {
                     @Override
                     public void loadImage(Context context, ImageView imageView, int position) {
                         Glide.with(context)
