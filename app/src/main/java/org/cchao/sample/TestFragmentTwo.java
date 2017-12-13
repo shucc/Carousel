@@ -17,6 +17,7 @@ import org.cchao.carousel.CarouselView;
 import org.cchao.carousel.listener.ImageLoaderListener;
 import org.cchao.carousel.listener.OnItemClickListener;
 import org.cchao.carousel.listener.OnPageListener;
+import org.cchao.sample.transformer.DepthPageTransformer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,5 +96,6 @@ public class TestFragmentTwo extends Fragment {
                 Log.d(TAG, "onPageScrollStateChanged: ");
             }
         });
+        carouselView.setPageTransformer(true, new DepthPageTransformer());
     }
 }

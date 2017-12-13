@@ -8,6 +8,8 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
+import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -292,6 +294,10 @@ public class CarouselView extends FrameLayout implements Handler.Callback {
         if (loopPageAdapter != null) {
             loopPageAdapter.setOnPageListener(onPageListener);
         }
+    }
+
+    public void setPageTransformer(boolean reverseDrawingOrder, @Nullable ViewPager.PageTransformer transformer) {
+        vpCarousel.setPageTransformer(reverseDrawingOrder, transformer);
     }
 
     /**
