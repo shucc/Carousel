@@ -89,6 +89,8 @@ public class BottomTabActivity extends AppCompatActivity {
             fragmentTransaction.show(fragments.get(position));
         }
         fragmentTransaction.commit();
+        textViews.get(nowSelect).setBackgroundDrawable(null);
+        textViews.get(position).setBackgroundColor(getResources().getColor(R.color.colorAccent));
         nowSelect = position;
     }
 

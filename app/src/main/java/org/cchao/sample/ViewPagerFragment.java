@@ -74,7 +74,6 @@ public class ViewPagerFragment extends Fragment {
                 .setShowTitle(true)
                 .setAutoSwitch(false)
                 .setCanLoop(false)
-                .setInterceptParent(false)
                 .setImageLoaderListener(new ImageLoaderListener() {
                     @Override
                     public void loadImage(Context context, ImageView imageView, int position) {

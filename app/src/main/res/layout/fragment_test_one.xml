@@ -9,8 +9,6 @@
         android:id="@+id/carouselView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:carousel_auto_switch="true"
-        app:carousel_delayTime="2000"
         app:carousel_indicator_height="10dp"
         app:carousel_indicator_width="10dp"
         app:carousel_show_indicator="true" />

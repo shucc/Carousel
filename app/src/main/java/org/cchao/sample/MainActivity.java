@@ -30,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
         });
         findViewById(R.id.button3).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                PtrLayoutTestActivity.launch(MainActivity.this);
+            public void onClick(View view) {
+
             }
         });
         findViewById(R.id.button4).setOnClickListener(new View.OnClickListener() {

@@ -23,8 +23,6 @@
         <activity
             android:name=".SwipeRefreshTestActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".PtrLayoutTestActivity"
-            android:screenOrientation="portrait" />
         <activity android:name=".ViewPagerTestActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".BottomTabActivity"

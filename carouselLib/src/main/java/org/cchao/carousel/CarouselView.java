@@ -80,14 +80,11 @@ public class CarouselView extends FrameLayout implements Handler.Callback {
     //title距离底部距离
     private int titleMarginBottom;
 
-    //ViewPager是否进行事件拦截
-    private boolean interceptParent = true;
-
     private Context context;
 
     private List<String> titles;
 
-    private CarouselViewPager vpCarousel;
+    private ViewPager vpCarousel;
 
     private LinearLayout llIndicator;
 
@@ -96,8 +93,6 @@ public class CarouselView extends FrameLayout implements Handler.Callback {
     private ImageLoaderListener imageloaderListener;
 
     private OnItemClickListener onItemClickListener;
-
-    private OnPageListener onPageListener;
 
     private CarouselLifecycleListener carouselLifecycleListener;
 
@@ -272,11 +267,6 @@ public class CarouselView extends FrameLayout implements Handler.Callback {
         return this;
     }
 
-    protected CarouselView setInterceptParent(boolean interceptParent) {
-        this.interceptParent = interceptParent;
-        return this;
-    }
-
     protected CarouselView setImageLoaderListener(ImageLoaderListener imageLoaderListener) {
         this.imageloaderListener = imageLoaderListener;
         return this;
@@ -290,7 +280,6 @@ public class CarouselView extends FrameLayout implements Handler.Callback {
     }
 
     public void setOnPageListener(OnPageListener onPageListener) {
-        this.onPageListener = onPageListener;
         if (loopPageAdapter != null) {
             loopPageAdapter.setOnPageListener(onPageListener);
         }
@@ -323,7 +312,6 @@ public class CarouselView extends FrameLayout implements Handler.Callback {
             indicatorViews = new ArrayList<>();
             addIndicator();
         }
-        vpCarousel.setInterceptParent(false);
         loopPageAdapter = new CarouselLoopPageAdapter(vpCarousel, canLoop, imageSize, titles, showTitle
                 , titleColor, titleSize, titleMarginBottom, imageloaderListener);
         if (onItemClickListener != null) {
@@ -362,11 +350,12 @@ public class CarouselView extends FrameLayout implements Handler.Callback {
             indicatorView.setBackgroundResource(i == 0 ? indicatorSelected : indicatorUnselected);
             llIndicator.addView(indicatorView);
             LinearLayout.MarginLayoutParams params = (LinearLayout.MarginLayoutParams) indicatorView.getLayoutParams();
-            params.width = indicatorWidth;
-            params.height = indicatorHeight;
-            if (i > 0) {
-                params.leftMargin = indicatorPadding;
+            if (indicatorWidth > 0 && indicatorHeight > 0) {
+                params.width = indicatorWidth;
+                params.height = indicatorHeight;
             }
+            params.leftMargin = indicatorPadding / 2;
+            params.rightMargin = indicatorPadding / 2;
             indicatorView.setLayoutParams(params);
             indicatorViews.add(indicatorView);
         }
