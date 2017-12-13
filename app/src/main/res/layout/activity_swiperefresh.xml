@@ -9,11 +9,15 @@
         android:id="@+id/carouselView"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        app:carousel_indicator_drawable_selected="@drawable/ic_indicator_selected"
-        app:carousel_indicator_drawable_unselected="@drawable/ic_indicator_unselected"
+        app:carousel_indicator_drawable_selected="@drawable/ic_indicator_selected_special"
+        app:carousel_indicator_drawable_unselected="@drawable/ic_indicator_unselected_special"
         app:carousel_indicator_height="2dp"
+        app:carousel_indicator_width="24dp"
+        app:carousel_indicator_selected_width="16dp"
+        app:carousel_indicator_selected_height="8dp"
+        app:carousel_indicator_unselected_width="8dp"
+        app:carousel_indicator_unselected_height="8dp"
         app:carousel_indicator_margin_bottom="16dp"
-        app:carousel_indicator_padding="8dp"
-        app:carousel_indicator_width="24dp" />
+        app:carousel_indicator_padding="4dp" />
 
 </org.cchao.sample.VpSwipeRefreshLayout>

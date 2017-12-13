@@ -4,13 +4,19 @@
         <attr name="carousel_delayTime" format="integer" />
         <attr name="carousel_auto_switch" format="boolean" />
         <attr name="carousel_can_loop" format="boolean" />
+        <!--Indicator-->
         <attr name="carousel_show_indicator" format="boolean" />
         <attr name="carousel_indicator_width" format="dimension" />
         <attr name="carousel_indicator_height" format="dimension" />
+        <attr name="carousel_indicator_selected_width" format="dimension" />
+        <attr name="carousel_indicator_selected_height" format="dimension" />
+        <attr name="carousel_indicator_unselected_width" format="dimension" />
+        <attr name="carousel_indicator_unselected_height" format="dimension" />
         <attr name="carousel_indicator_padding" format="dimension" />
         <attr name="carousel_indicator_margin_bottom" format="dimension" />
         <attr name="carousel_indicator_drawable_selected" format="reference" />
         <attr name="carousel_indicator_drawable_unselected" format="reference" />
+        <!--Title-->
         <attr name="carousel_show_title" format="boolean" />
         <attr name="carousel_title_size" format="dimension" />
         <attr name="carousel_title_color" format="color" />

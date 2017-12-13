@@ -57,6 +57,11 @@ public class CarouselView extends FrameLayout implements Handler.Callback {
     //单个指示器宽高
     private int indicatorWidth;
     private int indicatorHeight;
+    private int indicatorSelectedWidth;
+    private int indicatorSelectedHeight;
+    private int indicatorUnSelectedWidth;
+    private int indicatorUnSelectedHeight;
+    private boolean haveSpecialIndicator = false;
 
     //指示器间距
     private int indicatorPadding;
@@ -154,6 +159,10 @@ public class CarouselView extends FrameLayout implements Handler.Callback {
                 , getResources().getDimensionPixelOffset(R.dimen.carousel_default_indicator_width));
         indicatorHeight = typedArray.getDimensionPixelOffset(R.styleable.CarouselView_carousel_indicator_height
                 , getResources().getDimensionPixelOffset(R.dimen.carousel_default_indicator_height));
+        indicatorSelectedWidth = typedArray.getDimensionPixelOffset(R.styleable.CarouselView_carousel_indicator_selected_width, 0);
+        indicatorSelectedHeight = typedArray.getDimensionPixelOffset(R.styleable.CarouselView_carousel_indicator_selected_height, 0);
+        indicatorUnSelectedWidth = typedArray.getDimensionPixelOffset(R.styleable.CarouselView_carousel_indicator_unselected_width, 0);
+        indicatorUnSelectedHeight = typedArray.getDimensionPixelOffset(R.styleable.CarouselView_carousel_indicator_unselected_height, 0);
         indicatorPadding = typedArray.getDimensionPixelOffset(R.styleable.CarouselView_carousel_indicator_padding
                 , getResources().getDimensionPixelOffset(R.dimen.carousel_default_indicator_padding));
         indicatorMarginBottom = typedArray.getDimensionPixelOffset(R.styleable.CarouselView_carousel_indicator_margin_bottom
@@ -170,6 +179,7 @@ public class CarouselView extends FrameLayout implements Handler.Callback {
         titleMarginBottom = typedArray.getDimensionPixelOffset(R.styleable.CarouselView_carousel_title_margin_bottom
                 , getResources().getDimensionPixelOffset(R.dimen.carousel_default_title_margin_bottom));
         typedArray.recycle();
+        haveSpecialIndicator = ((indicatorSelectedWidth > 0 && indicatorSelectedHeight > 0) || (indicatorUnSelectedWidth > 0 && indicatorUnSelectedHeight > 0));
     }
 
     private void bindView(Context context) {
@@ -323,9 +333,29 @@ public class CarouselView extends FrameLayout implements Handler.Callback {
             @Override
             public void onPageSelected(int position) {
                 stop();
-                if (null != indicatorViews) {
+                if (null != indicatorViews && preSelect != position) {
                     indicatorViews.get(preSelect).setBackgroundResource(indicatorUnselected);
                     indicatorViews.get(position).setBackgroundResource(indicatorSelected);
+                    if (haveSpecialIndicator) {
+                        LinearLayout.LayoutParams preViewParam = (LinearLayout.LayoutParams) indicatorViews.get(preSelect).getLayoutParams();
+                        LinearLayout.LayoutParams nowViewParam = (LinearLayout.LayoutParams) indicatorViews.get(position).getLayoutParams();
+                        if (indicatorSelectedWidth > 0 && indicatorSelectedHeight > 0) {
+                            nowViewParam.width = indicatorSelectedWidth;
+                            nowViewParam.height = indicatorSelectedHeight;
+                        } else {
+                            nowViewParam.width = indicatorWidth;
+                            nowViewParam.height = indicatorHeight;
+                        }
+                        if (indicatorUnSelectedWidth > 0 && indicatorUnSelectedHeight > 0) {
+                            preViewParam.width = indicatorUnSelectedWidth;
+                            preViewParam.height = indicatorUnSelectedHeight;
+                        } else {
+                            preViewParam.width = indicatorWidth;
+                            preViewParam.height = indicatorHeight;
+                        }
+                        indicatorViews.get(preSelect).setLayoutParams(preViewParam);
+                        indicatorViews.get(position).setLayoutParams(nowViewParam);
+                    }
                 }
                 preSelect = position;
                 nowSelect = position;
@@ -350,7 +380,13 @@ public class CarouselView extends FrameLayout implements Handler.Callback {
             indicatorView.setBackgroundResource(i == 0 ? indicatorSelected : indicatorUnselected);
             llIndicator.addView(indicatorView);
             LinearLayout.MarginLayoutParams params = (LinearLayout.MarginLayoutParams) indicatorView.getLayoutParams();
-            if (indicatorWidth > 0 && indicatorHeight > 0) {
+            if (i == 0 && indicatorSelectedWidth > 0 && indicatorSelectedHeight > 0) {
+                params.width = indicatorSelectedWidth;
+                params.height = indicatorSelectedHeight;
+            } else if (i > 0 && indicatorUnSelectedWidth > 0 && indicatorUnSelectedHeight > 0) {
+                params.width = indicatorUnSelectedWidth;
+                params.height = indicatorUnSelectedHeight;
+            } else {
                 params.width = indicatorWidth;
                 params.height = indicatorHeight;
             }
