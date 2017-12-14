@@ -18,7 +18,7 @@ allprojects {
 ```groovy
 dependencies {
     implementation 'com.android.support:appcompat-v7:latest.version'
-    implementation ('com.github.shucc:Carousel:v1.7.1') {
+    implementation ('com.github.shucc:Carousel:v1.8') {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 }
@@ -42,10 +42,6 @@ dependencies {
 | app:carousel_indicator_margin_bottom | dimension | 指示符距离底部距离,默认16dp
 | app:carousel_indicator_drawable_selected | reference | 指示符选中图标,默认图标为红色小圆点
 | app:carousel_indicator_drawable_unselected | reference | 指示符未选中图标,默认图标为白色小圆点
-| app:carousel_show_title | boolean | 是否显示标题,默认不显示
-| app:carousel_title_size | dimension | 标题文字大小,默认16sp
-| app:carousel_title_color | color | 标题文字颜色,默认白色
-| app:carousel_title_margin_bottom | dimension | 标题距离底端距离，默认30dp
 
 ## How do I use Carousel?
 
@@ -66,27 +62,43 @@ dependencies {
         app:carousel_indicator_width="24dp"
         app:carousel_indicator_height="2dp"
         app:carousel_indicator_padding="8dp"
-        app:carousel_indicator_margin_bottom="8dp"
-        app:carousel_title_margin_bottom="18dp"/>
+        app:carousel_indicator_margin_bottom="8dp"/>
 
 </LinearLayout>
 ```
 ```java
+public class MyAdapter implements CarouselAdapter {
+
+    private List<MyModel> data;
+
+    public MyAdapter(List<MyModel> data) {
+        this.data = data;
+    }
+
+    @Override
+    public View getView(ViewGroup parent, int position) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_carousel, parent, false);
+        ImageView imgCarousel = view.findViewById(R.id.img_carousel);
+        Glide.with(parent.getContext())
+                .load(data.get(position).getImageUrl())
+                .into(imgCarousel);
+        return view;
+    }
+
+    @Override
+    public int getCount() {
+        return data.size();
+    }
+
+}
+```
+```java
 carouselView.with(this)
-        .setImageSize(5)
-        .setTitles(titles)
-        .setDealyTime(4 * 1000)
+        .setAdapter(new MyAdapter(data))
+        .setDelayTime(4 * 1000)
         .setShowIndicator(true)
-        .setShowTitle(true)
-        .setAutoSwitch(true)
-        .setImageLoaderListener(new ImageloaderListener() {
-            @Override
-            public void loadImage(Context context, ImageView imageView, int position) {
-                Glide.with(context)
-                        .load(imageUrls.get(position))
-                        .into(imageView);
-            }
-        })
+        .setAutoSwitch(false)
+        .setCanLoop(false)
         .start();
 ```
 轮播图切换已绑定Activity/Fragment生命周期，若设置了轮播图自动切换，不需要在Activity/Fragment的onResume等方法中手动设置开始与暂停播放轮播图，但是Fragment之间切换需要在onHiddenChanged设置自动切换的轮播图
@@ -106,9 +118,11 @@ public void onHiddenChanged(boolean hidden) {
 
 ![](https://raw.githubusercontent.com/shucc/Carousel/master/demo/demo1.gif)
 ![](https://raw.githubusercontent.com/shucc/Carousel/master/demo/demo2.gif)
-![](https://raw.githubusercontent.com/shucc/Carousel/master/demo/demo3.gif)
 
 ## 更新说明
+
+#### v1.8
+    轮播图展示使用Adapter自定义界面
 
 #### v1.7.1
     新增指示器配置选项

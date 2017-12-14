@@ -1,49 +1,29 @@
 package org.cchao.carousel;
 
-import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import org.cchao.carousel.listener.ImageLoaderListener;
+import org.cchao.carousel.listener.CarouselAdapter;
 import org.cchao.carousel.listener.OnItemClickListener;
 import org.cchao.carousel.listener.OnPageListener;
-
-import java.util.List;
 
 /**
  * Created by shucc on 17/3/30.
  * cc@cchao.org
  */
-public class CarouselLoopPageAdapter extends PagerAdapter implements ViewPager.OnPageChangeListener {
+class CarouselLoopPageAdapter extends PagerAdapter implements ViewPager.OnPageChangeListener {
 
     private final String TAG = getClass().getName();
 
     private ViewPager viewPager;
 
-    private List<String> titles;
-
-    private boolean showTitle;
-
     private boolean canLoop;
-
-    private int titleColor;
-
-    private int titleSize;
-
-    private int titleMarginBottom;
 
     private int nowSelect;
 
     private int fragmentSize = 0;
-
-    private ImageLoaderListener imageloaderListener;
 
     private OnItemClickListener onItemClickListener;
 
@@ -51,17 +31,13 @@ public class CarouselLoopPageAdapter extends PagerAdapter implements ViewPager.O
 
     private OnPageSelectedListener onPageSelectedListener;
 
-    public CarouselLoopPageAdapter(ViewPager viewPager, boolean canLoop, int imageSize, List<String> titles
-            , boolean showTitle, int titleColor, int titleSize, int titleMarginBottom, ImageLoaderListener imageloaderListener) {
+    private CarouselAdapter carouselPageAdapter;
+
+    public CarouselLoopPageAdapter(ViewPager viewPager, CarouselAdapter carouselPageAdapter, boolean canLoop) {
         this.viewPager = viewPager;
+        this.carouselPageAdapter = carouselPageAdapter;
         this.canLoop = canLoop;
-        this.showTitle = showTitle;
-        this.titles = titles;
-        this.titleColor = titleColor;
-        this.titleSize = titleSize;
-        this.titleMarginBottom = titleMarginBottom;
-        this.imageloaderListener = imageloaderListener;
-        fragmentSize = imageSize;
+        fragmentSize = carouselPageAdapter.getCount();
         viewPager.setOnPageChangeListener(this);
         if (!canLoop) {
             nowSelect = 0;
@@ -109,27 +85,12 @@ public class CarouselLoopPageAdapter extends PagerAdapter implements ViewPager.O
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         final int pos = position % fragmentSize;
-        Context context = container.getContext();
-        View view = LayoutInflater.from(context).inflate(R.layout.carousel_item, container, false);
-        final ImageView imageView = view.findViewById(R.id.img_carousel);
-        if (showTitle && pos < titles.size()) {
-            TextView textTitle = view.findViewById(R.id.text_carousel_title);
-            RelativeLayout.MarginLayoutParams params = (RelativeLayout.MarginLayoutParams) textTitle.getLayoutParams();
-            params.bottomMargin = titleMarginBottom;
-            textTitle.setLayoutParams(params);
-            textTitle.setTextColor(titleColor);
-            textTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, titleSize);
-            textTitle.setText(titles.get(pos));
-            textTitle.setVisibility(View.VISIBLE);
-            View shadowView = view.findViewById(R.id.view_carousel_shadow);
-            shadowView.setVisibility(View.VISIBLE);
-        }
-        imageloaderListener.loadImage(context, imageView, pos);
-        if (onItemClickListener != null) {
-            imageView.setOnClickListener(new View.OnClickListener() {
+        View view = carouselPageAdapter.getView(container, pos);
+        if (null != onItemClickListener) {
+            view.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    onItemClickListener.onClick(imageView, pos);
+                public void onClick(View view) {
+                    onItemClickListener.onClick(view, pos);
                 }
             });
         }

@@ -5,22 +5,19 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import org.cchao.carousel.app.CarouselFragment;
-import org.cchao.carousel.listener.CarouselLifecycleListener;
-import org.cchao.carousel.listener.ImageLoaderListener;
+import org.cchao.carousel.listener.CarouselAdapter;
 import org.cchao.carousel.listener.OnItemClickListener;
 import org.cchao.carousel.listener.OnPageListener;
 
@@ -73,21 +70,7 @@ public class CarouselView extends FrameLayout implements Handler.Callback {
     private int indicatorSelected;
     private int indicatorUnselected;
 
-    //是否显示title
-    private boolean showTitle;
-
-    //title文字大小
-    private int titleSize;
-
-    //title文字颜色
-    private int titleColor;
-
-    //title距离底部距离
-    private int titleMarginBottom;
-
     private Context context;
-
-    private List<String> titles;
 
     private ViewPager vpCarousel;
 
@@ -95,19 +78,17 @@ public class CarouselView extends FrameLayout implements Handler.Callback {
 
     private CarouselLoopPageAdapter loopPageAdapter;
 
-    private ImageLoaderListener imageloaderListener;
-
     private OnItemClickListener onItemClickListener;
 
     private CarouselLifecycleListener carouselLifecycleListener;
+
+    private CarouselAdapter carouselPageAdapter;
 
     //当前选中
     private int nowSelect = 0;
 
     //之前选中
     private int preSelect = 0;
-
-    private int imageSize = 0;
 
     //是否正在自动切换中
     private boolean isPlaying = false;
@@ -131,7 +112,6 @@ public class CarouselView extends FrameLayout implements Handler.Callback {
         bindView(context);
         initView();
         handler = new Handler(this);
-        titles = new ArrayList<>();
         carouselLifecycleListener = new CarouselLifecycleListener() {
             @Override
             public void onStop() {
@@ -171,13 +151,6 @@ public class CarouselView extends FrameLayout implements Handler.Callback {
                 , R.drawable.ic_default_indicator_selected);
         indicatorUnselected = typedArray.getResourceId(R.styleable.CarouselView_carousel_indicator_drawable_unselected
                 , R.drawable.ic_default_indicator_unselected);
-        showTitle = typedArray.getBoolean(R.styleable.CarouselView_carousel_show_title, false);
-
-        titleSize = typedArray.getDimensionPixelSize(R.styleable.CarouselView_carousel_title_size
-                , (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16, getResources().getDisplayMetrics()));
-        titleColor = typedArray.getColor(R.styleable.CarouselView_carousel_title_color, Color.WHITE);
-        titleMarginBottom = typedArray.getDimensionPixelOffset(R.styleable.CarouselView_carousel_title_margin_bottom
-                , getResources().getDimensionPixelOffset(R.dimen.carousel_default_title_margin_bottom));
         typedArray.recycle();
         haveSpecialIndicator = ((indicatorSelectedWidth > 0 && indicatorSelectedHeight > 0) || (indicatorUnSelectedWidth > 0 && indicatorUnSelectedHeight > 0));
     }
@@ -236,20 +209,10 @@ public class CarouselView extends FrameLayout implements Handler.Callback {
 
     public CarouselRequestManager with(android.support.v4.app.Fragment fragment) {
         android.support.v4.app.FragmentManager fm = fragment.getChildFragmentManager();
-        org.cchao.carousel.v4.CarouselFragment carouselFragment = new org.cchao.carousel.v4.CarouselFragment();
+        CarouselV4Fragment carouselFragment = new CarouselV4Fragment();
         carouselFragment.setCarouselLifecycleListener(carouselLifecycleListener);
         fm.beginTransaction().add(carouselFragment, CAROUSEL_FRAGMENT_TAG).commitAllowingStateLoss();
         return new CarouselRequestManager(this);
-    }
-
-    protected CarouselView setImageSize(int imageSize) {
-        this.imageSize = imageSize;
-        return this;
-    }
-
-    protected CarouselView setTitles(List<String> titles) {
-        this.titles = titles;
-        return this;
     }
 
     protected CarouselView setAutoSwitch(boolean autoSwitch) {
@@ -272,24 +235,19 @@ public class CarouselView extends FrameLayout implements Handler.Callback {
         return this;
     }
 
-    protected CarouselView setShowTitle(boolean showTitle) {
-        this.showTitle = showTitle;
+    protected CarouselView setAdapter(@NonNull CarouselAdapter carouselPageAdapter) {
+        this.carouselPageAdapter = carouselPageAdapter;
         return this;
     }
 
-    protected CarouselView setImageLoaderListener(ImageLoaderListener imageLoaderListener) {
-        this.imageloaderListener = imageLoaderListener;
-        return this;
-    }
-
-    public void setOnItemClickListener(OnItemClickListener listener) {
+    public void setOnItemClickListener(@NonNull OnItemClickListener listener) {
         this.onItemClickListener = listener;
         if (loopPageAdapter != null) {
             loopPageAdapter.setOnItemClickListener(listener);
         }
     }
 
-    public void setOnPageListener(OnPageListener onPageListener) {
+    public void setOnPageListener(@NonNull OnPageListener onPageListener) {
         if (loopPageAdapter != null) {
             loopPageAdapter.setOnPageListener(onPageListener);
         }
@@ -303,16 +261,13 @@ public class CarouselView extends FrameLayout implements Handler.Callback {
      * 开始轮播
      */
     protected void start() {
-        if (imageSize <= 0) {
+        if (null == carouselPageAdapter) {
+            throw new NullPointerException("CarouselAdapter must not be null!");
+        }
+        if (carouselPageAdapter.getCount() <= 0) {
             throw new NullPointerException("Image list must not be null!");
         }
-        if (showTitle && (null == titles || titles.isEmpty())) {
-            throw new NullPointerException("Title list must not be null!");
-        }
-        if (null == imageloaderListener) {
-            throw new NullPointerException("ImageLoaderListener must not be null!");
-        }
-        if (imageSize == 1) {
+        if (carouselPageAdapter.getCount() == 1) {
             isAutoSwitch = false;
             llIndicator.setVisibility(GONE);
         } else {
@@ -322,8 +277,7 @@ public class CarouselView extends FrameLayout implements Handler.Callback {
             indicatorViews = new ArrayList<>();
             addIndicator();
         }
-        loopPageAdapter = new CarouselLoopPageAdapter(vpCarousel, canLoop, imageSize, titles, showTitle
-                , titleColor, titleSize, titleMarginBottom, imageloaderListener);
+        loopPageAdapter = new CarouselLoopPageAdapter(vpCarousel, carouselPageAdapter, canLoop);
         if (onItemClickListener != null) {
             setOnItemClickListener(onItemClickListener);
         }
@@ -363,8 +317,8 @@ public class CarouselView extends FrameLayout implements Handler.Callback {
             }
         });
         vpCarousel.setAdapter(loopPageAdapter);
-        if (imageSize > 1) {
-            vpCarousel.setCurrentItem(canLoop ? imageSize * 10000 : 0);
+        if (carouselPageAdapter.getCount() > 1) {
+            vpCarousel.setCurrentItem(canLoop ? carouselPageAdapter.getCount() * 10000 : 0);
         }
         resume();
     }
@@ -375,7 +329,7 @@ public class CarouselView extends FrameLayout implements Handler.Callback {
     private void addIndicator() {
         llIndicator.removeAllViews();
         indicatorViews.clear();
-        for (int i = 0; i < imageSize; i++) {
+        for (int i = 0; i < carouselPageAdapter.getCount(); i++) {
             View indicatorView = new View(context);
             indicatorView.setBackgroundResource(i == 0 ? indicatorSelected : indicatorUnselected);
             llIndicator.addView(indicatorView);

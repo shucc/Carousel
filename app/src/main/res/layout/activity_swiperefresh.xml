@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<org.cchao.sample.VpSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<org.cchao.sample.widget.VpSwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/swiperefresh"
     android:layout_width="match_parent"
@@ -12,12 +12,12 @@
         app:carousel_indicator_drawable_selected="@drawable/ic_indicator_selected_special"
         app:carousel_indicator_drawable_unselected="@drawable/ic_indicator_unselected_special"
         app:carousel_indicator_height="2dp"
-        app:carousel_indicator_width="24dp"
-        app:carousel_indicator_selected_width="16dp"
-        app:carousel_indicator_selected_height="8dp"
-        app:carousel_indicator_unselected_width="8dp"
-        app:carousel_indicator_unselected_height="8dp"
         app:carousel_indicator_margin_bottom="16dp"
-        app:carousel_indicator_padding="4dp" />
+        app:carousel_indicator_padding="4dp"
+        app:carousel_indicator_selected_height="8dp"
+        app:carousel_indicator_selected_width="16dp"
+        app:carousel_indicator_unselected_height="8dp"
+        app:carousel_indicator_unselected_width="8dp"
+        app:carousel_indicator_width="24dp" />
 
-</org.cchao.sample.VpSwipeRefreshLayout>
+</org.cchao.sample.widget.VpSwipeRefreshLayout>

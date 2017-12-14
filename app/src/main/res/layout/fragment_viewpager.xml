@@ -13,7 +13,6 @@
         app:carousel_indicator_height="2dp"
         app:carousel_indicator_margin_bottom="8dp"
         app:carousel_indicator_padding="8dp"
-        app:carousel_indicator_width="24dp"
-        app:carousel_title_margin_bottom="18dp" />
+        app:carousel_indicator_width="24dp" />
 
 </RelativeLayout>

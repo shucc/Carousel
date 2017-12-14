@@ -11,13 +11,6 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop" />
 
-    <View
-        android:id="@+id/view_carousel_shadow"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/ic_default_shadow"
-        android:visibility="gone" />
-
     <TextView
         android:id="@+id/text_carousel_title"
         android:layout_width="match_parent"

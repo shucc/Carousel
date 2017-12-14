@@ -1,16 +1,12 @@
-package org.cchao.carousel.v4;
+package org.cchao.carousel;
 
 import android.support.v4.app.Fragment;
 
-import org.cchao.carousel.listener.CarouselLifecycleListener;
-
 /**
- * Created by shucc on 17/4/5.
+ * Created by shucc on 17/12/14.
  * cc@cchao.org
  */
-public class CarouselFragment extends Fragment {
-
-    private final String TAG = getClass().getName();
+public class CarouselV4Fragment extends Fragment {
 
     private CarouselLifecycleListener carouselLifecycleListener;
 

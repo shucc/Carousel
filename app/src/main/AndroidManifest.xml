@@ -25,8 +25,6 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".ViewPagerTestActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".BottomTabActivity"
-            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package org.cchao.sample;
+package org.cchao.sample.widget;
 
 import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -7,7 +7,7 @@ import android.view.MotionEvent;
 import android.view.ViewConfiguration;
 
 /**
- * Created by shucc on 17/4/5.
+ * Created by shucc on 17/12/14.
  * cc@cchao.org
  */
 public class VpSwipeRefreshLayout extends SwipeRefreshLayout {

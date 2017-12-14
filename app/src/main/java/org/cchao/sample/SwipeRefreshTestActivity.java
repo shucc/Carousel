@@ -7,14 +7,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-
 import org.cchao.carousel.CarouselView;
-import org.cchao.carousel.listener.ImageLoaderListener;
 import org.cchao.carousel.listener.OnItemClickListener;
+import org.cchao.sample.adapter.MyAdapter;
+import org.cchao.sample.model.MyModel;
+import org.cchao.sample.widget.VpSwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +30,7 @@ public class SwipeRefreshTestActivity extends Activity {
 
     private CarouselView carouselView;
 
-    private List<String> imageUrls;
+    private List<MyModel> data;
 
     public static void launch(Context context) {
         Intent starter = new Intent(context, SwipeRefreshTestActivity.class);
@@ -58,23 +57,19 @@ public class SwipeRefreshTestActivity extends Activity {
             }
         });
 
-        imageUrls = new ArrayList<>();
-        imageUrls.add("http://img0.imgtn.bdimg.com/it/u=2334645085,3449212359&fm=23&gp=0.jpg");
-        imageUrls.add("http://pic18.nipic.com/20120115/4999414_151322555150_2.jpg");
-        imageUrls.add("http://att.bbs.duowan.com/forum/201204/30/201115l6j65f42kjuljluf.jpg");
+        data = new ArrayList<>();
+        for (int i = 0; i < Constant.IMAGE_ARRAY.length; i++) {
+            MyModel myModel = new MyModel();
+            myModel.setImageUrl(Constant.IMAGE_ARRAY[i]);
+            myModel.setTitle("我是标题" + i);
+            data.add(myModel);
+        }
+
         carouselView.with(this)
-                .setImageSize(imageUrls.size())
+                .setAdapter(new MyAdapter(data))
                 .setDelayTime(5 * 1000)
                 .setShowIndicator(true)
                 .setAutoSwitch(false)
-                .setImageLoaderListener(new ImageLoaderListener() {
-                    @Override
-                    public void loadImage(Context context, ImageView imageView, int position) {
-                        Glide.with(context)
-                                .load(imageUrls.get(position))
-                                .into(imageView);
-                    }
-                })
                 .start();
         carouselView.setOnItemClickListener(new OnItemClickListener() {
             @Override

@@ -16,34 +16,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        findViewById(R.id.button1).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btn_fragment).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentTestActivity.launch(MainActivity.this);
             }
         });
-        findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btn_swipe_refresh).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SwipeRefreshTestActivity.launch(MainActivity.this);
             }
         });
-        findViewById(R.id.button3).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btn_viewpager).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-            }
-        });
-        findViewById(R.id.button4).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 ViewPagerTestActivity.launch(MainActivity.this);
-            }
-        });
-        findViewById(R.id.button5).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BottomTabActivity.launch(MainActivity.this);
             }
         });
     }

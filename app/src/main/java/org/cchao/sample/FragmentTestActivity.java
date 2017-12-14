@@ -6,14 +6,14 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-
 import org.cchao.carousel.CarouselView;
-import org.cchao.carousel.listener.ImageLoaderListener;
 import org.cchao.carousel.listener.OnItemClickListener;
+import org.cchao.sample.adapter.MyAdapter;
+import org.cchao.sample.fragment.TestFragmentOne;
+import org.cchao.sample.fragment.TestFragmentTwo;
+import org.cchao.sample.model.MyModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ public class FragmentTestActivity extends AppCompatActivity {
 
     private CarouselView carouselView;
 
-    private List<String> imageUrls;
+    private List<MyModel> data;
 
     public static void launch(Context context) {
         Intent starter = new Intent(context, FragmentTestActivity.class);
@@ -34,11 +34,13 @@ public class FragmentTestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment);
         carouselView = findViewById(R.id.carouselView);
-
-        imageUrls = new ArrayList<>();
-        imageUrls.add("http://img0.imgtn.bdimg.com/it/u=2334645085,3449212359&fm=23&gp=0.jpg");
-        imageUrls.add("http://pic18.nipic.com/20120115/4999414_151322555150_2.jpg");
-        imageUrls.add("http://att.bbs.duowan.com/forum/201204/30/201115l6j65f42kjuljluf.jpg");
+        data = new ArrayList<>();
+        for (int i = 0; i < Constant.IMAGE_ARRAY.length; i++) {
+            MyModel myModel = new MyModel();
+            myModel.setImageUrl(Constant.IMAGE_ARRAY[i]);
+            myModel.setTitle("我是标题" + i);
+            data.add(myModel);
+        }
 
         carouselView.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -48,20 +50,10 @@ public class FragmentTestActivity extends AppCompatActivity {
         });
         carouselView
                 .with(this)
-                .setImageSize(imageUrls.size())
+                .setAdapter(new MyAdapter(data))
                 .setDelayTime(5 * 1000)
                 .setShowIndicator(true)
                 .setAutoSwitch(true)
-                .setImageLoaderListener(new ImageLoaderListener() {
-                    @Override
-                    public void loadImage(Context context, ImageView imageView, int position) {
-                        Glide.with(context)
-                                .load(imageUrls.get(position))
-                                .placeholder(R.mipmap.ic_launcher)
-                                .error(R.mipmap.ic_launcher)
-                                .into(imageView);
-                    }
-                })
                 .start();
 
         FragmentManager fm = getSupportFragmentManager();

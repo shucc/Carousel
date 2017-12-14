@@ -5,38 +5,24 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/btn_fragment"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:text="FragmentTest"
         android:textAllCaps="false" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btn_swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:text="SwipeRefreshTest"
         android:textAllCaps="false" />
 
     <Button
-        android:id="@+id/button3"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:text="PullRefresh"
-        android:textAllCaps="false" />
-
-    <Button
-        android:id="@+id/button4"
+        android:id="@+id/btn_viewpager"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:text="ViewPager"
-        android:textAllCaps="false" />
-
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:text="BottomTab"
         android:textAllCaps="false" />
 
 </LinearLayout>

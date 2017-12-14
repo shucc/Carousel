@@ -1,20 +1,19 @@
-package org.cchao.sample;
+package org.cchao.sample.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-
 import org.cchao.carousel.CarouselView;
-import org.cchao.carousel.listener.ImageLoaderListener;
 import org.cchao.carousel.listener.OnItemClickListener;
+import org.cchao.sample.Constant;
+import org.cchao.sample.R;
+import org.cchao.sample.adapter.MyAdapter;
+import org.cchao.sample.model.MyModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +26,7 @@ public class TestFragmentOne extends Fragment {
 
     private CarouselView carouselView;
 
-    private List<String> imageUrls;
+    private List<MyModel> data;
 
     @Nullable
     @Override
@@ -45,20 +44,15 @@ public class TestFragmentOne extends Fragment {
                 Toast.makeText(getActivity(), "Click position" + position, Toast.LENGTH_SHORT).show();
             }
         });
-        imageUrls = new ArrayList<>();
-        imageUrls.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1491387197409&di=8cf281305ca82c2e697fccce92e33d0c&imgtype=0&src=http%3A%2F%2Fimg1.mydrivers.com%2Fimg%2F20140831%2F9fc2b8079ae04e0bb61f384302a2a33e.jpg");
-        imageUrls.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1491387197409&di=03873637a14711a3c0435d93024adb63&imgtype=0&src=http%3A%2F%2Fpic37.nipic.com%2F20140107%2F17589918_003530809000_2.jpg");
-        imageUrls.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1491387197409&di=bc41cecf5921c4c5cdc647d1e14fae08&imgtype=0&src=http%3A%2F%2Fpic46.nipic.com%2F20140823%2F18505720_094237483000_2.jpg");
+        data = new ArrayList<>();
+        for (int i = 0; i < Constant.IMAGE_ARRAY.length; i++) {
+            MyModel myModel = new MyModel();
+            myModel.setImageUrl(Constant.IMAGE_ARRAY[i]);
+            myModel.setTitle("我是标题" + i);
+            data.add(myModel);
+        }
         carouselView.with(this)
-                .setImageSize(imageUrls.size())
-                .setImageLoaderListener(new ImageLoaderListener() {
-                    @Override
-                    public void loadImage(Context context, ImageView imageView, int position) {
-                        Glide.with(context)
-                                .load(imageUrls.get(position))
-                                .into(imageView);
-                    }
-                })
+                .setAdapter(new MyAdapter(data))
                 .start();
     }
 

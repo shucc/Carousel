@@ -1,8 +1,8 @@
 package org.cchao.carousel;
 
-import org.cchao.carousel.listener.ImageLoaderListener;
+import android.support.annotation.NonNull;
 
-import java.util.List;
+import org.cchao.carousel.listener.CarouselAdapter;
 
 /**
  * Created by shucc on 17/4/5.
@@ -14,16 +14,6 @@ public class CarouselRequestManager {
 
     public CarouselRequestManager(CarouselView carouselView) {
         this.carouselView = carouselView;
-    }
-
-    public CarouselRequestManager setImageSize(int imageSize) {
-        carouselView.setImageSize(imageSize);
-        return this;
-    }
-
-    public CarouselRequestManager setTitles(List<String> titles) {
-        carouselView.setTitles(titles);
-        return this;
     }
 
     public CarouselRequestManager setAutoSwitch(boolean autoSwitch) {
@@ -46,13 +36,8 @@ public class CarouselRequestManager {
         return this;
     }
 
-    public CarouselRequestManager setShowTitle(boolean showTitle) {
-        carouselView.setShowTitle(showTitle);
-        return this;
-    }
-
-    public CarouselRequestManager setImageLoaderListener(ImageLoaderListener imageLoaderListener) {
-        carouselView.setImageLoaderListener(imageLoaderListener);
+    public CarouselRequestManager setAdapter(@NonNull CarouselAdapter carouselPageAdapter) {
+        carouselView.setAdapter(carouselPageAdapter);
         return this;
     }
 
