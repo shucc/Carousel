@@ -18,7 +18,7 @@ allprojects {
 ```groovy
 dependencies {
     implementation 'com.android.support:appcompat-v7:latest.version'
-    implementation ('com.github.shucc:Carousel:v1.7') {
+    implementation ('com.github.shucc:Carousel:v1.7.1') {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 }
@@ -96,3 +96,10 @@ carouselView.with(this)
 ![](https://raw.githubusercontent.com/shucc/Carousel/master/demo/demo1.gif)
 ![](https://raw.githubusercontent.com/shucc/Carousel/master/demo/demo2.gif)
 ![](https://raw.githubusercontent.com/shucc/Carousel/master/demo/demo3.gif)
+
+## 更新说明
+
+#### v1.7.1
+    新增指示器配置选项
+  * 添加选中与未选中指示器的宽高设置
+  * 添加设置轮播图切换动画方法

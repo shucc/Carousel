@@ -43,8 +43,6 @@ public class CarouselLoopPageAdapter extends PagerAdapter implements ViewPager.O
 
     private int fragmentSize = 0;
 
-    private Context context;
-
     private ImageLoaderListener imageloaderListener;
 
     private OnItemClickListener onItemClickListener;
@@ -111,7 +109,7 @@ public class CarouselLoopPageAdapter extends PagerAdapter implements ViewPager.O
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         final int pos = position % fragmentSize;
-        context = container.getContext();
+        Context context = container.getContext();
         View view = LayoutInflater.from(context).inflate(R.layout.carousel_item, container, false);
         final ImageView imageView = view.findViewById(R.id.img_carousel);
         if (showTitle && pos < titles.size()) {
