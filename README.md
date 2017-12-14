@@ -1,6 +1,6 @@
 # Carousel
 
-轮播图
+绑定Activity/Fragment生命周期的轮播图
 
 ## Gradle
 
@@ -71,7 +71,6 @@ dependencies {
 
 </LinearLayout>
 ```
-
 ```java
 carouselView.with(this)
         .setImageSize(5)
@@ -89,6 +88,18 @@ carouselView.with(this)
             }
         })
         .start();
+```
+轮播图切换已绑定Activity/Fragment生命周期，若设置了轮播图自动切换，不需要在Activity/Fragment的onResume等方法中手动设置开始与暂停播放轮播图，但是Fragment之间切换需要在onHiddenChanged设置自动切换的轮播图
+```java
+@Override
+public void onHiddenChanged(boolean hidden) {
+    super.onHiddenChanged(hidden);
+    if (hidden) {
+        carouselView.stop();
+    } else {
+        carouselView.resume();
+    }
+}
 ```
 
 ## Demo
