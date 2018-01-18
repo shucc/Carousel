@@ -18,7 +18,7 @@ allprojects {
 ```groovy
 dependencies {
     implementation 'com.android.support:appcompat-v7:latest.version'
-    implementation ('com.github.shucc:Carousel:v1.8') {
+    implementation ('com.github.shucc:Carousel:v1.9') {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
 }
@@ -120,6 +120,9 @@ public void onHiddenChanged(boolean hidden) {
 ![](https://raw.githubusercontent.com/shucc/Carousel/master/demo/demo2.gif)
 
 ## 更新说明
+
+#### v1.9
+    修改RecyclerView配合CarouselView使用时动画停止bug
 
 #### v1.8
     轮播图展示使用Adapter自定义界面

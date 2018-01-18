@@ -42,12 +42,6 @@ public class FragmentTestActivity extends AppCompatActivity {
             data.add(myModel);
         }
 
-        carouselView.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                Toast.makeText(FragmentTestActivity.this, "Click position:" + position, Toast.LENGTH_SHORT).show();
-            }
-        });
         carouselView
                 .with(this)
                 .setAdapter(new MyAdapter(data))
@@ -55,6 +49,12 @@ public class FragmentTestActivity extends AppCompatActivity {
                 .setShowIndicator(true)
                 .setAutoSwitch(true)
                 .start();
+        carouselView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Toast.makeText(FragmentTestActivity.this, "点击:" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.fl_one, new TestFragmentOne()).commitAllowingStateLoss();

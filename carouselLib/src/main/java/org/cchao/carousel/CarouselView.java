@@ -72,7 +72,7 @@ public class CarouselView extends FrameLayout implements Handler.Callback {
 
     private Context context;
 
-    private ViewPager vpCarousel;
+    private CarouselViewPager vpCarousel;
 
     private LinearLayout llIndicator;
 
@@ -371,6 +371,14 @@ public class CarouselView extends FrameLayout implements Handler.Callback {
     public void stop() {
         isPlaying = false;
         handler.removeMessages(WHAT_SWITCH);
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        if (null != handler) {
+            resume();
+        }
     }
 
     @Override

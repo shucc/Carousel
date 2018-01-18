@@ -25,6 +25,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".ViewPagerTestActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".RecyclerViewTestActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -1,7 +1,6 @@
 package org.cchao.carousel;
 
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -13,11 +12,11 @@ import org.cchao.carousel.listener.OnPageListener;
  * Created by shucc on 17/3/30.
  * cc@cchao.org
  */
-class CarouselLoopPageAdapter extends PagerAdapter implements ViewPager.OnPageChangeListener {
+class CarouselLoopPageAdapter extends PagerAdapter implements CarouselViewPager.OnPageChangeListener {
 
     private final String TAG = getClass().getName();
 
-    private ViewPager viewPager;
+    private CarouselViewPager viewPager;
 
     private boolean canLoop;
 
@@ -33,7 +32,7 @@ class CarouselLoopPageAdapter extends PagerAdapter implements ViewPager.OnPageCh
 
     private CarouselAdapter carouselPageAdapter;
 
-    public CarouselLoopPageAdapter(ViewPager viewPager, CarouselAdapter carouselPageAdapter, boolean canLoop) {
+    public CarouselLoopPageAdapter(CarouselViewPager viewPager, CarouselAdapter carouselPageAdapter, boolean canLoop) {
         this.viewPager = viewPager;
         this.carouselPageAdapter = carouselPageAdapter;
         this.canLoop = canLoop;

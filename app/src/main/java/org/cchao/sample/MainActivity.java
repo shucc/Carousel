@@ -34,5 +34,11 @@ public class MainActivity extends AppCompatActivity {
                 ViewPagerTestActivity.launch(MainActivity.this);
             }
         });
+        findViewById(R.id.btn_recyclerview).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RecyclerViewTestActivity.launch(MainActivity.this);
+            }
+        });
     }
 }
