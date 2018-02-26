@@ -25,6 +25,9 @@ public class CarouselViewPager extends ViewPager {
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
+        if (null == getAdapter()) {
+            return;
+        }
         try {
             //处理调用onDetachFromWindow后动画停用问题
             Field mFirstLayout = ViewPager.class.getDeclaredField("mFirstLayout");

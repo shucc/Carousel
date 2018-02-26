@@ -8,6 +8,7 @@ import android.view.ViewGroup;
  * cc@cchao.org
  */
 public interface CarouselAdapter {
+
     View getView(ViewGroup parent, int position);
 
     int getCount();
