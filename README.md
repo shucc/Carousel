@@ -119,7 +119,7 @@ public void onHiddenChanged(boolean hidden) {
 
 ## 更新说明
 
-### v1.9.1
+### v2.0.0
     添加AndroidX支持
 
 ### v1.9.1
