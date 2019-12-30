@@ -1,21 +1,23 @@
 package org.cchao.carousel;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.viewpager.widget.ViewPager;
 
 import org.cchao.carousel.listener.CarouselAdapter;
 import org.cchao.carousel.listener.OnItemClickListener;
@@ -191,8 +193,16 @@ public class CarouselView extends FrameLayout implements Handler.Callback {
         return false;
     }
 
+    public CarouselRequestManager with(AppCompatActivity activity) {
+        FragmentManager fm = activity.getSupportFragmentManager();
+        CarouselXFragment carouselXFragment = new CarouselXFragment();
+        carouselXFragment.setCarouselLifecycleListener(carouselLifecycleListener);
+        fm.beginTransaction().add(carouselXFragment, CAROUSEL_FRAGMENT_TAG).commitAllowingStateLoss();
+        return new CarouselRequestManager(this);
+    }
+
     public CarouselRequestManager with(Activity activity) {
-        FragmentManager fm = activity.getFragmentManager();
+        android.app.FragmentManager fm = activity.getFragmentManager();
         CarouselFragment carouselFragment = new CarouselFragment();
         carouselFragment.setCarouselLifecycleListener(carouselLifecycleListener);
         fm.beginTransaction().add(carouselFragment, CAROUSEL_FRAGMENT_TAG).commitAllowingStateLoss();
@@ -201,15 +211,15 @@ public class CarouselView extends FrameLayout implements Handler.Callback {
 
     public CarouselRequestManager with(Fragment fragment) {
         FragmentManager fm = fragment.getFragmentManager();
-        CarouselFragment carouselFragment = new CarouselFragment();
-        carouselFragment.setCarouselLifecycleListener(carouselLifecycleListener);
-        fm.beginTransaction().add(carouselFragment, CAROUSEL_FRAGMENT_TAG).commitAllowingStateLoss();
+        CarouselXFragment carouselXFragment = new CarouselXFragment();
+        carouselXFragment.setCarouselLifecycleListener(carouselLifecycleListener);
+        fm.beginTransaction().add(carouselXFragment, CAROUSEL_FRAGMENT_TAG).commitAllowingStateLoss();
         return new CarouselRequestManager(this);
     }
 
-    public CarouselRequestManager with(android.support.v4.app.Fragment fragment) {
-        android.support.v4.app.FragmentManager fm = fragment.getChildFragmentManager();
-        CarouselV4Fragment carouselFragment = new CarouselV4Fragment();
+    public CarouselRequestManager with(android.app.Fragment fragment) {
+        android.app.FragmentManager fm = fragment.getFragmentManager();
+        CarouselFragment carouselFragment = new CarouselFragment();
         carouselFragment.setCarouselLifecycleListener(carouselLifecycleListener);
         fm.beginTransaction().add(carouselFragment, CAROUSEL_FRAGMENT_TAG).commitAllowingStateLoss();
         return new CarouselRequestManager(this);

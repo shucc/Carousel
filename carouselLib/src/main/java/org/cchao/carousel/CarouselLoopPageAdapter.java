@@ -1,8 +1,9 @@
 package org.cchao.carousel;
 
-import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.viewpager.widget.PagerAdapter;
 
 import org.cchao.carousel.listener.CarouselAdapter;
 import org.cchao.carousel.listener.OnItemClickListener;

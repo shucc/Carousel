@@ -31,6 +31,7 @@ public class MyAdapter implements CarouselAdapter {
         ImageView imgCarousel = view.findViewById(R.id.img_carousel);
         Glide.with(parent.getContext())
                 .load(data.get(position).getImageUrl())
+                .centerCrop()
                 .into(imgCarousel);
         return view;
     }

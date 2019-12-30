@@ -1,7 +1,8 @@
 package org.cchao.sample.transformer;
 
-import android.support.v4.view.ViewPager;
 import android.view.View;
+
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * Created by shucc on 17/12/13.

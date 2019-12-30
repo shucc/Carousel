@@ -6,11 +6,11 @@ package org.cchao.sample;
  */
 public class Constant {
 
-    public static String[] IMAGE_ARRAY = new String[] {
-            "http://img0.imgtn.bdimg.com/it/u=2334645085,3449212359&fm=23&gp=0.jpg",
-            "http://pic18.nipic.com/20120115/4999414_151322555150_2.jpg",
-            "http://att.bbs.duowan.com/forum/201204/30/201115l6j65f42kjuljluf.jpg",
-            "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1513824162&di=1626cbea1389f0ddbe7f8cfa610ba002&imgtype=jpg&er=1&src=http%3A%2F%2Fpic4.nipic.com%2F20090922%2F3452170_222009073881_2.jpg",
-            "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1513229443405&di=5c1766ce9c612dfcd45fbd63928c4d62&imgtype=0&src=http%3A%2F%2Ffiles.jb51.net%2Ffile_images%2Fgame%2F201512%2F2015120310153151.jpg"
+    public static String[] IMAGE_ARRAY = new String[]{
+            "http://img3.imgtn.bdimg.com/it/u=3381573685,1866477444&fm=26&gp=0.jpg",
+            "http://file02.16sucai.com/d/file/2015/0408/779334da99e40adb587d0ba715eca102.jpg",
+            "http://file02.16sucai.com/d/file/2015/0128/8b0f093a8edea9f7e7458406f19098af.jpg",
+            "http://file02.16sucai.com/d/file/2014/0704/e53c868ee9e8e7b28c424b56afe2066d.jpg",
+            "http://img12.3lian.com/gaoqing02/02/93/37.jpg"
     };
 }

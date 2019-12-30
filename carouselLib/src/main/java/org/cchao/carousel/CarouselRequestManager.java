@@ -1,6 +1,6 @@
 package org.cchao.carousel;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import org.cchao.carousel.listener.CarouselAdapter;
 
